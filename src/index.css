@@ -1,0 +1,49 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto|Cabin+Sketch');
+
+body{
+  background-color: #d2d2d2 !important;
+  
+}
+.App{
+  background-color: #ccc;
+}
+
+h2{
+  color: #00aae6 !important; 
+}
+h4{
+  font-family: 'Cabin Sketch';
+}
+.navbar-nav {
+  font-family: 'Cabin Sketch';
+  font-size: 1.2em;
+}
+.activeTab {
+  color: #00aae6 !important;
+  margin: 10px;
+  padding: 10px;
+}
+.activeTab::before { 
+  content:"\A";
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #00aae6;
+  display: inline-block;
+  margin: 2px 2px;
+}
+.card-title {
+  color: #00aae6;
+  font-family: 'Cabin Sketch';
+}
+.carousel-indicators .active {
+  background-color: #00aae6 !important;
+}
+.carousel-indicators li {
+  background-color: #fff !important;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
