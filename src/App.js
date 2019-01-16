@@ -1,44 +1,55 @@
 import React, { Component } from 'react';
 
-import { Router, Route, Switch, Redirect, } from "react-router-dom";
+import { Router, Route, Switch, } from "react-router-dom";
 import createBrowserHistory from "history/createBrowserHistory";
 import withTracker from './withTracker';
 
 import NavbarPage from './comps/NavbarPage'
 import FooterPage from './comps/FooterPage'
 
+import 'font-awesome/css/font-awesome.min.css';
+import 'bootstrap-css-only/css/bootstrap.min.css'; 
+import 'mdbreact/dist/css/mdb.css';
+
 import './App.css';
 
-//import StatusWraper from './section/StatusWraper'
+import Login from './pages/Login'
 import Dashboard from './pages/Dashboard'
 import Timeline from './pages/Timeline'
+
+import ProtectedRoute  from './comps/ProtectedRoute'
+import auth from "./utils/Auth";
 
 const history = createBrowserHistory()
 
 class App extends Component {
+
+  triggerAction(action) {
+    console.log(action)
+
+    auth.logout(() => {
+      history.push("/");
+    });
+
+  }
 
   render() {
     return (
       <div className="App">
         <Router history={history}>
           <div>
-            <NavbarPage /> 
+            <NavbarPage action={this.triggerAction} />
 
             <Switch>
-
-              <Route exact strict path="/" render={({ location }) => {
-                if (location.pathname === window.location.pathname) {
-                  return <Redirect to="/dashboard" />;
-                }
-                return null;
-              }} />
-              <Route path="/dashboard" component={withTracker(Dashboard)} />
-              <Route path="/timelines" component={withTracker(Timeline)} />
-              <Route path="/timeline/:id" component={withTracker(Timeline)} />
-             
+              <Route path="/dashboard" component={ProtectedRoute(withTracker(Dashboard))} />
+              <Route path="/timelines" component={ProtectedRoute(withTracker(Timeline))} />
+              <Route path="/timeline/:id" component={ProtectedRoute(withTracker(Timeline))} />
+              <Route path="/" component={withTracker(Login)} />
             </Switch>
+
+
             <br /> <br /> <br />
-            <FooterPage /> 
+            <FooterPage />
 
           </div>
         </Router>

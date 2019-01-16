@@ -16,6 +16,7 @@ import {
     DropdownMenu,
     DropdownItem,
     Media,
+    Fa,
 } from "mdbreact";
 
 class NavbarPage extends React.Component {
@@ -31,8 +32,12 @@ class NavbarPage extends React.Component {
         this.setState({ isOpen: !this.state.isOpen });
     }
 
+    triggerAction(action) {
+        this.props.action(action)
+    }
+
     render() {
-        
+
         const linkStyle = {
             color: '#fff',
             margin: '5px',
@@ -43,7 +48,7 @@ class NavbarPage extends React.Component {
         }
         return (
 
-            <Navbar dark expand="md" style={{ backgroundColor: '#3f3f3f'}}>
+            <Navbar dark expand="md" style={{ backgroundColor: '#3f3f3f' }}>
                 <NavbarBrand>
                     <Media left >
                         <Media object src={require('../assets/img/logo.png')} alt="Cascade logo" style={{ width: 200 }} />
@@ -59,8 +64,8 @@ class NavbarPage extends React.Component {
                         <NavItem style={tabStyle}>
                             <NavLink activeClassName="activeTab" style={linkStyle} to="/dashboard">Dashboard</NavLink>
                         </NavItem>
-                        
-                                              
+
+
                         <NavItem>
                             <Dropdown>
                                 <DropdownToggle nav caret>
@@ -72,7 +77,20 @@ class NavbarPage extends React.Component {
                                 </DropdownMenu>
                             </Dropdown>
                         </NavItem>
-                        
+
+                    </NavbarNav>
+                    <NavbarNav right>
+                       
+                        <NavItem>
+                            <Dropdown>
+                                <DropdownToggle nav caret>
+                                    <Fa icon="user" />
+                                </DropdownToggle>
+                                <DropdownMenu className="dropdown-default" right>
+                                    <DropdownItem onClick={()=>{this.triggerAction('logout')}}>LogOut</DropdownItem>
+                                </DropdownMenu>
+                            </Dropdown>
+                        </NavItem>
                     </NavbarNav>
                 </Collapse>
             </Navbar>

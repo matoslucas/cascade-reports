@@ -4,6 +4,11 @@ body{
   background-color: #d2d2d2 !important;
   
 }
+
+.login{
+  background-color: #001821 !important;
+  background-image: url(../src/assets/img/graphy-dark.png);
+}
 .App{
   background-color: #ccc;
 }
