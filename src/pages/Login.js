@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Redirect, } from "react-router-dom";
 
 import { MDBContainer, MDBRow, MDBBtn, MDBCard, MDBInput } from 'mdbreact';
 
@@ -30,6 +29,7 @@ class Login extends Component {
         let promise = auth.isAuthenticated()
         promise.then(user => {
             _self.setState({ isAuthenticated: true, isLoading: false })
+            _self.props.history.push("/dashboard");
         }).catch(e => {
             console.log(e)
             _self.setState({ isAuthenticated: false, isLoading: false })
@@ -40,24 +40,24 @@ class Login extends Component {
 
     onLogin() {
         const _self = this
-        auth.login(this.state).catch(function(error) {
+        auth.login(this.state).catch(function (error) {
             // Handle Errors here.
-           console.log(error)
-           alert(error.message)
-      
-          }).then(function(e){
-            
-            if(e){
+            console.log(error)
+            alert(error.message)
+
+        }).then(function (e) {
+
+            if (e) {
                 _self.props.history.push("/dashboard");
             }
-            
-          });
 
-        
+        });
+
+
     }
 
     handleChange(event) {
-        
+
         let newValue = this.state
         newValue[event.target.name] = event.target.value;
         this.setState(newValue);
@@ -114,21 +114,14 @@ class Login extends Component {
     }
 
     render() {
-        const { isAuthenticated } = this.state
+        const { isAuthenticated, isLoading } = this.state
 
         return (
-            <div>{isAuthenticated ?
-                <Redirect
-                    to={{
-                        pathname: "/",
-                        state: {
-                            from: this.props.location
-                        }
-                    }}
-                />
+            <div>{isLoading ?
+                <div class="loader border-top-info"></div> 
                 :
                 <div>
-                    {this.loginUI()}
+                    {isAuthenticated ? null : this.loginUI()}
                 </div>}
             </div>
         )

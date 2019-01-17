@@ -100,7 +100,7 @@ class TimeLineChart extends Component {
   render() {
 
     if (this.state.loading) {
-      return <div>Loading...</div>
+      return <div class="loader border-top-info"></div> 
     } else {
       return (
         <Chart

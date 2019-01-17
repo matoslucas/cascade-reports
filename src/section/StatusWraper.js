@@ -84,17 +84,17 @@ class StatusWraper extends Component {
     const { chartData, loading } = this.state
     return (
 
-      <div style={{ display: 'flex' }}>
+      <div className="d-flex justify-content-center align-items-center" style={{height:'70vh'}}>
         {
           loading ?
-            <div>Loading...</div>
+          <div class="loader border-top-info"></div> 
             :
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
             <h4>Jobs Status</h4>
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center'  }}>
               
-              <StatusPieChart width={'100vw'} height={'50vh'} data={chartData} />
-              <StatusBarChart width={'100vw'} height={'50vh'} data={chartData} />
+              <StatusPieChart width={'100vw'} height={'30vh'} data={chartData} />
+              <StatusBarChart width={'100vw'} height={'30vh'} data={chartData} />
             </div>
             </div>
         }

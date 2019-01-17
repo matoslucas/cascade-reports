@@ -64,6 +64,10 @@ class NavbarPage extends React.Component {
                         <NavItem style={tabStyle}>
                             <NavLink activeClassName="activeTab" style={linkStyle} to="/dashboard">Dashboard</NavLink>
                         </NavItem>
+                        
+                        <NavItem style={tabStyle}>
+                            <NavLink activeClassName="activeTab" style={linkStyle} to="/prospect">Prospect</NavLink>
+                        </NavItem>
 
 
                         <NavItem>
