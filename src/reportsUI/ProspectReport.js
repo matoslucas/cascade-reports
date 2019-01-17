@@ -81,7 +81,7 @@ class ProspectReport extends Component {
             <div className="d-flex justify-content-center align-items-center" style={{height:'60vh'}}>
                 {
                     this.state.loading ?
-                    <div class="loader border-top-info"></div> :
+                    <div className="loader border-top-info"></div> :
                         <Chart
                             width={'100%'}
                             height={'100%'}

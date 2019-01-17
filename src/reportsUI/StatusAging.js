@@ -24,13 +24,13 @@ class StatusAging extends Component {
 
     componentDidMount() {
         const api = new TrackviaAPI(Config.apiKey, Config.accessToken, Config.env);
-        api.getView(903, { start: 0, max: 300 })
+        api.getView(903, { start: 0, max: 1500 })
             .then(results => {
                 let rows = []
 
                
                 const data = results.data
-                // console.log(data, Jobs.job01)
+                 console.log(data )
 
                 if (Array.isArray(data)) {
                     const field = 'Status for Chart'

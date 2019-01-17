@@ -118,7 +118,7 @@ class Login extends Component {
 
         return (
             <div>{isLoading ?
-                <div class="loader border-top-info"></div> 
+                <div className="loader border-top-info"></div> 
                 :
                 <div>
                     {isAuthenticated ? null : this.loginUI()}

@@ -16,7 +16,11 @@ class StatusWraper extends Component {
     super(props)
     // Don't call this.setState() here!
     this.state = {
-      chartData:
+      PieChartData:
+        [
+          ['Status', 'Qty']
+        ],
+      BarChartData:
         [
           ['Status', 'Qty']
         ],
@@ -29,13 +33,17 @@ class StatusWraper extends Component {
 
   componentDidMount() {
     const api = new TrackviaAPI(Config.apiKey, Config.accessToken, Config.env);
-    api.getView(903, { start: 0, max: 300 })
+    api.getView(903, { start: 0, max: 1500 })
       .then(results => {
         let rows = []
 
 
         const data = results.data
-        // console.log(data, Jobs.job01)
+        /*
+        data.forEach(e => {
+          console.log(e['Status for Chart'])
+        });
+        */
 
         if (Array.isArray(data)) {
           const field = 'Status for Chart'
@@ -53,6 +61,21 @@ class StatusWraper extends Component {
           const warrantyCount = this.getTotalValuesFrom(field, Jobs.job12, data)
           const vpoCount = this.getTotalValuesFrom(field, Jobs.job13, data)
 
+          /*
+          console.log(Jobs.job01, needsConfirmedStartCount)
+          console.log(Jobs.job02, needsScaffCount)
+          console.log(Jobs.job03, needsWrapCount)
+          console.log(Jobs.job04, needsInspectionsCount)
+          console.log(Jobs.job05, needsBrownSidingCount)
+          console.log(Jobs.job06, needsRockColorPaintCount)
+          console.log(Jobs.job07, needsSoffitCount)
+          console.log(Jobs.job08, needsGuttersCount)
+          console.log(Jobs.job10, removeScaffCount)
+          console.log(Jobs.job11, preparingCloseCount)
+          console.log(Jobs.job12, warrantyCount)
+          console.log(Jobs.job13, vpoCount)
+          */
+
           rows.push([Jobs.job01, needsConfirmedStartCount])
           rows.push([Jobs.job02, needsScaffCount])
           rows.push([Jobs.job03, needsWrapCount])
@@ -68,8 +91,10 @@ class StatusWraper extends Component {
 
         }
 
-        this.setState({ loading: false, chartData: [...this.state.chartData, ...rows] }, () => {
-          // console.log(this.state)
+        this.setState({
+          loading: false,
+          PieChartData: [...this.state.PieChartData, ...rows],
+          BarChartData: [...this.state.BarChartData, ...rows],
         })
 
       })
@@ -81,21 +106,21 @@ class StatusWraper extends Component {
 
 
   render() {
-    const { chartData, loading } = this.state
+    const { PieChartData, BarChartData, loading } = this.state
     return (
 
-      <div className="d-flex justify-content-center align-items-center" style={{height:'70vh'}}>
+      <div className="d-flex justify-content-center align-items-center" style={{ height: '100%' }}>
         {
           loading ?
-          <div class="loader border-top-info"></div> 
+            <div className="loader border-top-info"></div>
             :
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-            <h4>Jobs Status</h4>
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center'  }}>
-              
-              <StatusPieChart width={'100vw'} height={'30vh'} data={chartData} />
-              <StatusBarChart width={'100vw'} height={'30vh'} data={chartData} />
-            </div>
+              <h4>Jobs Status</h4>
+              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+
+                <StatusPieChart width={'100vw'} height={'50vh'} data={PieChartData} />
+                <StatusBarChart width={'100vw'} height={'50vh'} data={BarChartData} />
+              </div>
             </div>
         }
 
