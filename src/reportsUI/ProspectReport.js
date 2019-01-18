@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import Config from '../utils/Trackvia.config'
 import TrackviaAPI from '../trackvia-api'
 import Chart from 'react-google-charts';
-import Months from '../utils/Months'
+import getMonthsByYear from '../utils/Months'
 
 
 class ProspectReport extends Component {
@@ -14,7 +14,7 @@ class ProspectReport extends Component {
         this.state = {
             chartData:
                 [
-                    ['Month', 'Qty', 'Complexity']
+                    ['Month', 'Jobs', 'Housing Units']
                 ],
             loading: true,
         }
@@ -24,8 +24,9 @@ class ProspectReport extends Component {
 
 
     componentDidMount() {
+        const { year, viewId } = this.props
         const api = new TrackviaAPI(Config.apiKey, Config.accessToken, Config.env);
-        api.getView(922, { start: 0, max: 1300 })
+        api.getView( viewId , { start: 0, max: 1500 })
             .then(results => {
                 let rows = []
 
@@ -35,7 +36,7 @@ class ProspectReport extends Component {
 
                 if (Array.isArray(data)) {
 
-                    Months.forEach(item => {
+                    getMonthsByYear(year).forEach(item => {
 
                         rows.push([
                             item.name,
@@ -77,6 +78,7 @@ class ProspectReport extends Component {
     }
 
     render() {
+        const { year } = this.props
         return (
             <div className="d-flex justify-content-center align-items-center" style={{height:'60vh'}}>
                 {
@@ -90,7 +92,7 @@ class ProspectReport extends Component {
                             data={this.state.chartData}
 
                             options={{
-                                title: 'Qty vs. Complexity',
+                                title: year+' | Jobs vs. Housing Units',
                                 colors: ['#00aae6', '#74797d'],
                                 vAxis: { title: 'Qty', minValue: 0, },
                                 hAxis: { title: 'Month' },
