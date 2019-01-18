@@ -44,17 +44,20 @@ class App extends Component {
         <Router history={history}>
           <div>
             <NavbarPage action={this.triggerAction} />
-
-            <Switch>
-              <Route path="/dashboard" component={ProtectedRoute(withTracker(Dashboard))} />
-              <Route path="/timelines" component={ProtectedRoute(withTracker(Timeline))} />
-              <Route path="/timeline/:id" component={ProtectedRoute(withTracker(Timeline))} />
-              <Route path="/prospect" component={ProtectedRoute(withTracker(Prospect))} />
-              <Route path="/" component={withTracker(Login)} />
-            </Switch>
-
-
-            <br /> <br /> <br />
+            <div
+              className="d-flex justify-content-center align-items-center"
+              style={{
+                marginBottom: 80,
+                marginTop: 40
+              }} >
+              <Switch>
+                <Route path="/dashboard" component={ProtectedRoute(withTracker(Dashboard))} />
+                <Route path="/timelines" component={ProtectedRoute(withTracker(Timeline))} />
+                <Route path="/timeline/:id" component={ProtectedRoute(withTracker(Timeline))} />
+                <Route path="/prospect" component={ProtectedRoute(withTracker(Prospect))} />
+                <Route path="/" component={withTracker(Login)} />
+              </Switch>
+            </div>
             <FooterPage />
 
           </div>

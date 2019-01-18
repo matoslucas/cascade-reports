@@ -10,7 +10,7 @@ class StatusPieChart extends Component {
                 width={width}
                 height={height}
                 chartType="PieChart"
-                loader={<div>Loading Chart</div>}
+                loader={<div className="loader border-top-info"></div>}
                 data={data}
                 options={{
                     showRowNumber: true,

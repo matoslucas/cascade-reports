@@ -80,7 +80,7 @@ class ProspectReport extends Component {
     render() {
         const { year } = this.props
         return (
-            <div className="d-flex justify-content-center align-items-center" style={{height:'60vh'}}>
+            <div className="d-flex justify-content-center align-items-center" style={{height:'60vh', width: '100vw'}}>
                 {
                     this.state.loading ?
                     <div className="loader border-top-info"></div> :
