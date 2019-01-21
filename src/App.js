@@ -15,14 +15,14 @@ import 'mdbreact/dist/css/mdb.css';
 import './App.css';
 
 
-import NavbarPage from './comps/NavbarPage'
+import NavbarComp from './comps/NavbarComp'
 import FooterPage from './comps/FooterPage'
 
 import Login from './pages/Login'
 import Dashboard from './pages/Dashboard'
 import Timeline from './pages/Timeline'
 import Prospect from './pages/Prospect'
-
+import Since2016 from './pages/Since2016'
 
 
 const history = createBrowserHistory()
@@ -43,7 +43,7 @@ class App extends Component {
       <div className="App">
         <Router history={history}>
           <div>
-            <NavbarPage action={this.triggerAction} />
+            <NavbarComp action={this.triggerAction} />
             <div
               className="d-flex justify-content-center align-items-center"
               style={{
@@ -54,7 +54,8 @@ class App extends Component {
                 <Route path="/dashboard" component={ProtectedRoute(withTracker(Dashboard))} />
                 <Route path="/timelines" component={ProtectedRoute(withTracker(Timeline))} />
                 <Route path="/timeline/:id" component={ProtectedRoute(withTracker(Timeline))} />
-                <Route path="/prospect" component={ProtectedRoute(withTracker(Prospect))} />
+                <Route path="/prospects" component={ProtectedRoute(withTracker(Prospect))} />
+                <Route path="/prospect/:id" component={ProtectedRoute(withTracker(Since2016))} />
                 <Route path="/" component={withTracker(Login)} />
               </Switch>
             </div>

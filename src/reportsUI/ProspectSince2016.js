@@ -5,8 +5,7 @@ import TrackviaAPI from '../trackvia-api'
 import Chart from 'react-google-charts';
 import Months from '../utils/Months'
 
-
-class ProspectReport extends Component {
+class ProspectSince2016 extends Component {
 
     constructor(props) {
         super(props)
@@ -14,7 +13,7 @@ class ProspectReport extends Component {
         this.state = {
             chartData:
                 [
-                    ['Month', 'Jobs', 'Housing Units']
+                    ['Month', '2016', '2017', '2018']
                 ],
             loading: true,
         }
@@ -24,25 +23,36 @@ class ProspectReport extends Component {
 
 
     componentDidMount() {
-        const { year, viewId } = this.props
+
+        const { viewId } = this.props
         const api = new TrackviaAPI(Config.apiKey, Config.accessToken, Config.env);
-        api.getView( viewId , { start: 0, max: 3000 })
+        api.getView(viewId, { start: 0, max: 3000 })
             .then(results => {
                 let rows = []
 
 
                 const data = results.data
-                // console.log(data)
+                 // console.log(data)
+
 
                 if (Array.isArray(data)) {
 
-                    Months.getMonthsByYear(year).forEach(item => {
+                /* Array format sample 
+                // ['JAN','2016-01','2017-01', '2018-01']
+                // ['FEB','2016-02','2017-02', '2018-02']
+                */
 
-                        rows.push([
-                            item.name,
-                            this.getTotalJobsFromMonth('Re-4-Way Date', item.value, data),
-                            this.getTotalJobsComplexity('Re-4-Way Date', item.value, data),
-                        ])
+                    Months.getDefaultMonths().forEach(m => {
+                        //console.log(m.name)
+                        let mm = []
+                        Months.getYears().forEach(y => {
+                            const val = y + "-" + m.value
+                            
+                            const qty = this.getTotalJobsComplexity('Re-4-Way Date', val, data)
+                          
+                            mm.push(qty)
+                        })
+                        rows.push([m.name, ...mm])
                     })
 
                 }
@@ -64,11 +74,13 @@ class ProspectReport extends Component {
             return month === value
         }).length
     }
+    
 
     getTotalJobsComplexity(field, value, data) {
         return data.filter(item => {
             var d = String(item[field]).split('-')
             var month = d[0] + "-" + d[1]
+                       
             return month === value
         }).reduce((total, item) => {
             var v = Number(item['Complexity (# of Plexes)'])
@@ -78,12 +90,12 @@ class ProspectReport extends Component {
     }
 
     render() {
-        const { year } = this.props
+
         return (
-            <div className="d-flex justify-content-center align-items-center" style={{height:'60vh', width: '100vw'}}>
+            <div className="d-flex justify-content-center align-items-center" style={{ height: '60vh', width: '100vw' }}>
                 {
                     this.state.loading ?
-                    <div className="loader border-top-info"></div> :
+                        <div className="loader border-top-info"></div> :
                         <Chart
                             width={'100%'}
                             height={'100%'}
@@ -92,12 +104,12 @@ class ProspectReport extends Component {
                             data={this.state.chartData}
 
                             options={{
-                                title: year+' | Jobs vs. Housing Units',
-                                colors: ['#00aae6', '#74797d'],
+                                title: 'Housing Units',
+                                colors: ['#b7c0ca', '#74797d', '#00aae6'],
                                 vAxis: { title: 'Qty', minValue: 0, },
                                 hAxis: { title: 'Month' },
                                 seriesType: 'bars',
-                              }}
+                            }}
 
                             rootProps={{ 'data-testid': '1' }}
                         />
@@ -108,4 +120,4 @@ class ProspectReport extends Component {
     }
 }
 
-export default ProspectReport;
+export default ProspectSince2016;

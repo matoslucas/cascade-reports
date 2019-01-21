@@ -19,7 +19,7 @@ import {
     Fa,
 } from "mdbreact";
 
-class NavbarPage extends React.Component {
+class NavbarComp extends React.Component {
 
     constructor(props) {
         super(props);
@@ -65,8 +65,17 @@ class NavbarPage extends React.Component {
                             <NavLink activeClassName="activeTab" style={linkStyle} to="/dashboard">Dashboard</NavLink>
                         </NavItem>
                         
-                        <NavItem style={tabStyle}>
-                            <NavLink activeClassName="activeTab" style={linkStyle} to="/prospect">Prospect</NavLink>
+
+                        <NavItem>
+                            <Dropdown>
+                                <DropdownToggle nav caret>
+                                    <div className="d-md-inline">Prospect</div>
+                                </DropdownToggle>
+                                <DropdownMenu right>
+                                    <DropdownItem href="/prospects">By Year</DropdownItem>
+                                    <DropdownItem href="/prospect/since">Since 2016-2018</DropdownItem>
+                                </DropdownMenu>
+                            </Dropdown>
                         </NavItem>
 
 
@@ -102,4 +111,4 @@ class NavbarPage extends React.Component {
     }
 }
 
-export default NavbarPage;
+export default NavbarComp;
