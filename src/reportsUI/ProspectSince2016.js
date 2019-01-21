@@ -108,7 +108,7 @@ class ProspectSince2016 extends Component {
                                 colors: ['#b7c0ca', '#74797d', '#00aae6'],
                                 vAxis: { title: 'Qty', minValue: 0, },
                                 hAxis: { title: 'Month' },
-                                seriesType: 'bars',
+                                seriesType: 'line',
                             }}
 
                             rootProps={{ 'data-testid': '1' }}
