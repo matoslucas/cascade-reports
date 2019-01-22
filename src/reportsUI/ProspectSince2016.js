@@ -92,10 +92,12 @@ class ProspectSince2016 extends Component {
     render() {
 
         return (
-            <div className="d-flex justify-content-center align-items-center" style={{ height: '60vh', width: '100vw' }}>
+            <div className="d-flex justify-content-center align-items-center" style={{ height: '90vh', width: '100vw' }}>
                 {
                     this.state.loading ?
-                        <div className="loader border-top-info"></div> :
+                        <div className="loader border-top-info"></div>
+                         :<div className="d-flex flex-column justify-content-center align-items-center"
+                         style={{ height: '50vh', width: '100vw' }}>
                         <Chart
                             width={'100%'}
                             height={'100%'}
@@ -113,6 +115,24 @@ class ProspectSince2016 extends Component {
 
                             rootProps={{ 'data-testid': '1' }}
                         />
+                        <Chart
+                            width={'100%'}
+                            height={'100%'}
+                            chartType="ComboChart"
+                            loader={<div className="loader border-top-info"></div>}
+                            data={this.state.chartData}
+
+                            options={{
+                                title: 'Housing Units',
+                                colors: ['#b7c0ca', '#74797d', '#00aae6'],
+                                vAxis: { title: 'Qty', minValue: 0, },
+                                hAxis: { title: 'Month' },
+                                seriesType: 'bars',
+                            }}
+
+                            rootProps={{ 'data-testid': '2' }}
+                        />
+                        </div>
                 }
 
             </div>

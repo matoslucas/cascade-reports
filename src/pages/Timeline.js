@@ -7,8 +7,8 @@ import Views from '../utils/Views'
 class Timeline extends Component {
 
     componentDidMount() {
-         const { match} = this.props
-         console.log(match.params.id)
+         // const { match} = this.props
+        // console.log(match.params.id)
     }
 
     render() {

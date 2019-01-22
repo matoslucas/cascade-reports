@@ -32,7 +32,11 @@ class TimeLineChart extends Component {
       .then(results => {
         let rows = []
 
-        results.data.forEach(e => {
+        const data = results.data
+
+        // console.log(data)
+
+        data.forEach(e => {
           //console.log(e);
           //Client Start Date
           // console.log(e['Client Start Date']);
@@ -63,7 +67,7 @@ class TimeLineChart extends Component {
           // console.log(wrap, inspec, brown)
 
           const jobKey = e['Record ID']
-  
+
 
           if (fourWay && start && fourWay > start) {
             rows.push([jobKey, 'Set Scaff', start, fourWay]);
@@ -99,42 +103,42 @@ class TimeLineChart extends Component {
 
 
           //actual 
-          const jobKeyActual = e['Record ID']+"*"
+          const jobKeyActual = e['Record ID'] + "*"
 
-         
+
 
           if (fourWay && wrap && wrap > fourWay) {
             rows.push([jobKeyActual, 'Wrap', fourWay, wrap]);
           }
 
-          if (inspec  > wrap ) {
-            rows.push([jobKeyActual, 'Inspection', wrap , inspec ]);
+          if (inspec > wrap) {
+            rows.push([jobKeyActual, 'Inspection', wrap, inspec]);
           }
 
-          if (brown  > inspec ) {
-            rows.push([jobKeyActual, 'Brown', inspec , brown ]);
+          if (brown > inspec) {
+            rows.push([jobKeyActual, 'Brown', inspec, brown]);
           }
 
-          if (rcp  > brown ) {
-            rows.push([jobKeyActual, 'Rock/Color/Paint', brown , rcp ]);
+          if (rcp > brown) {
+            rows.push([jobKeyActual, 'Rock/Color/Paint', brown, rcp]);
           }
 
-          if (soffit  > rcp ) {
-            rows.push([jobKeyActual, 'Soffit', rcp , soffit ]);
+          if (soffit > rcp) {
+            rows.push([jobKeyActual, 'Soffit', rcp, soffit]);
           }
 
-          if (gutters  > soffit ) {
-            rows.push([jobKeyActual, 'Gutters', soffit , gutters ]);
+          if (gutters > soffit) {
+            rows.push([jobKeyActual, 'Gutters', soffit, gutters]);
           }
 
-          if (removeScaff  > gutters ) {
-            rows.push([jobKeyActual, 'Remove Scaff', gutters , removeScaff ]);
+          if (removeScaff > gutters) {
+            rows.push([jobKeyActual, 'Remove Scaff', gutters, removeScaff]);
           }
 
         });
 
         this.setState({ loading: false, chartData: [...this.state.chartData, ...rows] }, () => {
-          console.log(this.state)
+          //console.log(this.state)
         })
 
 
@@ -144,54 +148,49 @@ class TimeLineChart extends Component {
   render() {
 
     if (this.state.loading) {
-      return <div className="loader border-top-info"></div> 
+      return <div className="loader border-top-info"></div>
     } else {
       return (
-        <Chart
-          width={'calc(100vw - 20px)'}
-          height={'100vh'}
-          chartType="Timeline"
-          loader={<div>Loading Chart</div>}
-          data={this.state.chartData}
-          options={{
-            showRowNumber: true,
-          }}
-          rootProps={{ 'data-testid': '1' }}
+      
+          <Chart
+            width={'calc(100vw - 22px)'}
+            height={'100vh'}
+            chartType="Timeline"
+            loader={<div className="loader border-top-info"></div>}
+            data={this.state.chartData}
+            options={{
+              showRowNumber: true,
+            }}
+            rootProps={{ 'data-testid': '1' }}
 
-          chartPackages={['corechart', 'controls']}
-          controls={[
-            {
-              'controlType': 'ChartRangeFilter',
-                  'containerId': 'control',
-                  'options': {
-                  // Filter by the date axis.
-                  'filterColumnIndex': 2,
-                      'ui': {
-                      'chartType': 'LineChart',
-                          'chartOptions': {
-                          'width': '100vw',
-                              'height': 70,
-                              'chartArea': {
-                              width: '80%', // make sure this is the same for the chart and control so the axes align right
-                              height: '80%'
-                          },
-                              'hAxis': {
-                              'baselineColor': 'none'
-                          }
-                      },
-                      // Display a single series that shows the closing value of the stock.
-                      // Thus, this view has two columns: the date (axis) and the stock value (line series).
-                      'chartView': {
-                          'columns': [2, 3]
-                      }
-                  }
+            chartPackages={['corechart', 'controls']}
+            controls={[
+              {
+                controlType: 'StringFilter',
+                options: {
+                  filterColumnIndex: 0,
+                  matchType: 'any', // 'prefix' | 'exact',
+                  ui: {
+                    label: 'Filter by name',
+                  },
+                },
               },
-              // Initial range: 2012-02-09 to 2012-03-20.
-              //'state': {'range': {'start': new Date(1380740460000), 'end': new Date(1380740480000)}}
-          }
-          ]}
 
-        />
+              {
+                controlType: 'DateRangeFilter',
+                options: {
+                  // Filter by the date axis.
+                  filterColumnIndex: 2,
+                  
+                },
+                // Initial range: 2012-02-09 to 2012-03-20.
+                //'state': {'range': {'start': new Date(1380740460000), 'end': new Date(1380740480000)}}
+              },
+              
+            ]}
+
+          />
+       
       )
     }
   }

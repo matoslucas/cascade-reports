@@ -48,7 +48,11 @@ h4{
   background-color: #fff !important;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+
+#googlechart-control-0-1{
+  float: left;
+  margin: -20px 0 20px 50px;
+}
+#googlechart-control-1-2{
+  margin: -20px 0 20px auto;
 }
