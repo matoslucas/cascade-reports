@@ -20,7 +20,7 @@ class TimeLineChart extends Component {
       ],
       loading: true,
     }
-    //this.handleClick = this.handleClick.bind(this);
+    
   }
 
   componentDidMount() {
@@ -145,6 +145,13 @@ class TimeLineChart extends Component {
       })
   }
 
+  goToTasksDetailPage(id) {
+    // console.log(id, this.props)
+    const { selectClickHandler } = this.props
+    
+    selectClickHandler(String(id).replace('*',''));
+  }
+
   render() {
 
     if (this.state.loading) {
@@ -158,6 +165,7 @@ class TimeLineChart extends Component {
             chartType="Timeline"
             loader={<div className="loader border-top-info"></div>}
             data={this.state.chartData}
+            
             options={{
               showRowNumber: true,
             }}
@@ -187,6 +195,29 @@ class TimeLineChart extends Component {
                 //'state': {'range': {'start': new Date(1380740460000), 'end': new Date(1380740480000)}}
               },
               
+            ]}
+
+
+            chartEvents={[
+              {
+                eventName: 'select',
+                callback: ({ chartWrapper }) => {
+                  const chart = chartWrapper.getChart()
+                  const selection = chart.getSelection()
+                 
+                  if (selection.length === 1) {
+                    const [selectedItem] = selection
+                    const dataTable = chartWrapper.getDataTable()
+                    //console.log(dataTable.getValue(0, 0))
+                    const { row } = selectedItem
+                    // console.log(row, column, dataTable.getValue(row, 0))
+                    const value = dataTable.getValue(row, 0)
+                    this.goToTasksDetailPage(value)
+                    
+                  }
+                 
+                },
+              },
             ]}
 
           />

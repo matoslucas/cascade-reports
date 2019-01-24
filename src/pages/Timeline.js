@@ -6,9 +6,23 @@ import Views from '../utils/Views'
 
 class Timeline extends Component {
 
+    constructor(props) {
+        super(props)
+        // Don't call this.setState() here!
+        this.goToTasksDetailPage = this.goToTasksDetailPage.bind(this);
+        
+      }
+
+  
     componentDidMount() {
          // const { match} = this.props
         // console.log(match.params.id)
+    }
+
+    goToTasksDetailPage(id) {
+        // console.log(id, this.props)
+        const { history } = this.props
+        history.push("/tasks/"+id);
     }
 
     render() {
@@ -18,7 +32,7 @@ class Timeline extends Component {
 
         return (
             <div className="d-flex justify-content-center align-items-center" style={{height:'100vh'}}>
-                <TimeLineChart viewId={Views[id]} />
+                <TimeLineChart viewId={Views[id]} selectClickHandler={this.goToTasksDetailPage}/>
             </div>
         )
     }
