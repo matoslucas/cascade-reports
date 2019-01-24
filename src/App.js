@@ -8,9 +8,10 @@ import ProtectedRoute from './comps/ProtectedRoute'
 import auth from "./utils/Auth";
 
 
-import 'font-awesome/css/font-awesome.min.css';
-import 'bootstrap-css-only/css/bootstrap.min.css';
+import "@fortawesome/fontawesome-free/css/all.min.css";
+import 'bootstrap-css-only/css/bootstrap.min.css'; 
 import 'mdbreact/dist/css/mdb.css';
+
 
 import './App.css';
 
