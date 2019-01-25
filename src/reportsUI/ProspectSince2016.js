@@ -65,7 +65,7 @@ class ProspectSince2016 extends Component {
 
                             const qty = this.getTotalJobsComplexity('Re-4-Way Date', val, data)
                             const jobsQty = this.getTotalJobsFromMonth('Re-4-Way Date', val, data)
-                            console.log(val, jobsQty, qty)
+                            // console.log(val, jobsQty, qty)
                             mm.push(qty)
                             mmJobs.push(jobsQty)
                         })
