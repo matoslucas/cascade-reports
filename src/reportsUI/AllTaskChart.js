@@ -37,7 +37,7 @@ class AllTaskChart extends Component {
 
         const { viewId, id } = this.props
 
-       // console.log('loadDataFromApi', viewId, id)
+       console.log('loadDataFromApi', viewId, id)
 
         const api = new TrackviaAPI(Config.apiKey, Config.accessToken, Config.env);
         const query = id //'134-Waters Edge-Woodside'
@@ -50,9 +50,10 @@ class AllTaskChart extends Component {
                 // console.log(results)
                 if (Array.isArray(data)) {
 
-                    // console.log(data)
+                    //console.log(data)
                     data.forEach(item => {
                         // console.log(, item['Task Status'], item['Team and Task']) //['Task Type'])
+                        // console.log(item)
                         const start = item['Start Date/Time'] ? new Date(item['Start Date/Time']) : null
                         let end
                         let taskTitle = item['Task Type']
@@ -63,7 +64,11 @@ class AllTaskChart extends Component {
                             taskTitle+=' on Progress'
                         }
                         
-                        console.log(taskTitle, start, end)
+                        console.log(taskTitle)
+                        console.log('* start ' + start)
+                        console.log( '* end '+end)
+                        console.log('====')
+
                         if (start && end && end > start) {
                             
                             rows.push([query, taskTitle, start, end]);
