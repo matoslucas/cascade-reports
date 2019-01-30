@@ -140,6 +140,13 @@ class ProspectByWeeks extends Component {
     render() {
         const { showHomes } = this.state
         const chartColors = ['#b7c0ca', '#00aae6', '#74797d',]
+        const trendLineForChart = {
+            0: {
+              type: 'polynomial',
+              visibleInLegend: true,
+              color: 'red'
+            }
+          }
         return (
             <div className="d-flex justify-content-center" style={{ height: '90vh', width: '100vw' }}>
                 {
@@ -170,6 +177,7 @@ class ProspectByWeeks extends Component {
                                     options={{
                                         title: showHomes ? 'Jobs Qty' : 'Housing Units',
                                         colors: chartColors,
+                                        trendlines: trendLineForChart,   // Draw a trendline for data series 0.
                                         vAxis: { title: 'Qty', minValue: 0, },
                                         hAxis: { title: 'Month' },
                                         seriesType: 'line',
@@ -192,6 +200,7 @@ class ProspectByWeeks extends Component {
                                     options={{
                                         title: showHomes ? 'Jobs Qty' : 'Housing Units',
                                         colors: chartColors,
+                                        trendlines: trendLineForChart,   // Draw a trendline for data series 0.
                                         vAxis: { title: 'Qty', minValue: 0, },
                                         hAxis: { title: 'Month' },
                                         seriesType: 'bars',
