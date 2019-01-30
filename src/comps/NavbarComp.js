@@ -72,7 +72,8 @@ class NavbarComp extends React.Component {
                                     <div className="d-md-inline">Prospect</div>
                                 </DropdownToggle>
                                 <DropdownMenu right>
-                                    <DropdownItem href="/prospects">By Year</DropdownItem>
+                                    <DropdownItem href="/prospect/weeks">By Weeks</DropdownItem>
+                                    <DropdownItem href="/prospect/years">By Year</DropdownItem>
                                     <DropdownItem href="/prospect/since">Since 2016-2018</DropdownItem>
                                 </DropdownMenu>
                             </Dropdown>

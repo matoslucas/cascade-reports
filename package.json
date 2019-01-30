@@ -8,6 +8,7 @@
     "firebase-tools": "^6.2.2",
     "history": "^4.7.2",
     "mdbreact": "^4.9.0",
+    "moment": "^2.24.0",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
     "react-ga": "^2.5.6",

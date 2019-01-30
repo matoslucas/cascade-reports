@@ -22,8 +22,7 @@ import FooterPage from './comps/FooterPage'
 import Login from './pages/Login'
 import Dashboard from './pages/Dashboard'
 import Timeline from './pages/Timeline'
-import Prospect from './pages/Prospect'
-import Since2016 from './pages/Since2016'
+import Prospects from './pages/Prospects'
 import AllTask from './pages/AllTask'
 
 
@@ -56,8 +55,7 @@ class App extends Component {
                 <Route path="/dashboard" component={ProtectedRoute(withTracker(Dashboard))} />
                 <Route path="/timelines" component={ProtectedRoute(withTracker(Timeline))} />
                 <Route path="/timeline/:id" component={ProtectedRoute(withTracker(Timeline))} />
-                <Route path="/prospects" component={ProtectedRoute(withTracker(Prospect))} />
-                <Route path="/prospect/:id" component={ProtectedRoute(withTracker(Since2016))} />
+                <Route path="/prospect/:id" component={ProtectedRoute(withTracker(Prospects))} />
                 <Route path="/tasks/:id" component={ProtectedRoute(withTracker(AllTask))} />
                 <Route path="/" component={withTracker(Login)} />
               </Switch>

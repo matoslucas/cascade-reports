@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 
-import ProspectReport from '../reportsUI/ProspectReport'
+import ProspectReport from './ProspectReport'
 
 
-class Prospect extends Component {
+class ProspectByYear extends Component {
 
     render() {
         return (
@@ -16,4 +16,4 @@ class Prospect extends Component {
     }
 
 }
-export default Prospect
+export default ProspectByYear
