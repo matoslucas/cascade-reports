@@ -5,7 +5,6 @@ import Switch from '@material-ui/core/Switch';
 import Config from '../utils/Trackvia.config'
 import TrackviaAPI from '../trackvia-api'
 import Chart from 'react-google-charts';
-import Months from '../utils/Months'
 
 import moment from 'moment'
 
@@ -17,14 +16,16 @@ class ProspectByWeeks extends Component {
         this.state = {
             chartData:
                 [
-                    ['Week', '2018']
+                    ['Week', '2018', '2019']
                 ],
-            jobs: [
-                ['Week', '2018']
-            ],
-            homes: [
-                ['Week', '2018']
-            ],
+            jobs:
+                [
+                    ['Week', '2018', '2019']
+                ],
+            homes:
+                [
+                    ['Week', '2018', '2019']
+                ],
             showHomes: false,
             loading: true,
         }
@@ -35,14 +36,9 @@ class ProspectByWeeks extends Component {
 
 
     componentDidMount() {
-
-        for (let i = 2008; i <= 2020; i++) {
-            console.log(
-                this.getTotalWeeksFromYear(i)
-            )
-        }
         this.loadDataFromApi()
     }
+
 
     loadDataFromApi() {
         const { viewId } = this.props
@@ -51,124 +47,71 @@ class ProspectByWeeks extends Component {
 
         api.getView(viewId, { start: 0, max: 3000 })
             .then(results => {
-                let homes = []
-                let jobs = []
-                let rows = []
 
                 const data = results.data
-
-                const y2018Len = this.getTotalWeeksFromYear(2018);
-                const y2019Len = this.getTotalWeeksFromYear(2019);
-
-                let weeks = [];
-
-                for (let i = 1; i <= y2018Len; i++) {
-                    //console.log(i);
-                    weeks.push(
-                        this.getDateRangesFromWeekNumber(i, 2018)
-                    )
-                }
-
-                /*
-                for (let i = 1; i <= y2019Len; i++) {
-                    //console.log(i);
-                    weeks.push(
-                        this.getDateRangesFromWeekNumber(i, 2019)
-                    )
-                }
-                */
-
-                // console.log(weeks)
-
-                // console.log(data)
-
-
+                let dataWraper = []
                 if (Array.isArray(data)) {
 
-                    /* Array format sample 
-                    // ['1 Jan to 7 Jan', x, y]
-                    // ['8 Jan to 14 Jan', x, y]
-                    */
-
-                    
-                    weeks.forEach((week, index) => {
-                       
-                      
-                        const qty = this.getTotalJobsFromWeek('Re-4-Way Date', week, data)
-                        console.log(
-                            week.start.format('DD-MMM') ,
-                            qty
-                            )
-                        var name = Number(index+1) //week.start.format('DD-MMM') +' to '+  week.start.format('DD-MMM-YYYY')
-                        rows.push([ name, qty])
-
-                    })
-                    
-                    /*
-                    var year = 2018
-                    var weekNumber = 1
-                    var beginningOfWeek = moment().set('year', year).week(weekNumber).startOf('week');
-                    var endOfWeek = moment().set('year', year).week(weekNumber).startOf('week').add(6, 'days')
-
-                    console.log(
-                        'test',
-                        moment('2018-01-05').isBetween(beginningOfWeek, endOfWeek)
-                    )
-                    */
-
-                    /*
-                          Months.getDefaultMonths().forEach(m => {
-                              //console.log(m.name)
-                              let mm = []
-                              let mmJobs = []
-                              Months.getYears().forEach(y => {
-                                  const val = y + "-" + m.value
-      
-                                  const qty = this.getTotalJobsComplexity('Re-4-Way Date', val, data)
-                                  const jobsQty = this.getTotalJobsFromMonth('Re-4-Way Date', val, data)
-                                  // console.log(val, jobsQty, qty)
-                                  mm.push(qty)
-                                  mmJobs.push(jobsQty)
-                              })
-                              homes.push([m.name, ...mm])
-                              jobs.push([m.name, ...mmJobs])
-                          })
-                          */
+                    dataWraper = _self.createDataForChart(data)
 
                 }
 
+                _self.setState({
+                    loading: false,
+                    chartData: [...this.state.chartData, ...dataWraper.homes],
+                    homes: [...this.state.chartData, ...dataWraper.homes],
+                    jobs: [...this.state.chartData, ...dataWraper.jobs]
 
-                
-                  _self.setState({
-                      loading: false,
-                      chartData: [...this.state.chartData, ...rows],
-                   
-                  }, () => {
-                      //console.log(this.state)
-                  })
-                  
-
+                }, () => {
+                    //console.log(this.state)
+                })
 
             })
     }
 
-    getTotalJobsFromWeek(field, date, data) {
+    createDataForChart(data) {
+        // try to print 53 weeks
+        let jobsWraper = []
+        let homesWraper = []
+        let targetReached = false
+        for (let isoWeek = 1; isoWeek <= 53; isoWeek++) {
+            let jobs = []
+            let homes = []
+            for (let year = 2018; year <= 2019; year++) {
+                const yearWeekLen = this.getTotalWeeksFromYear(year)
+                if (isoWeek <= yearWeekLen) {
+                    const week = this.getDateRangesFromWeekNumber(isoWeek, year)
+
+                    const jobsQty = this.getTotalJobsByWeek('Re-4-Way Date', week, data)
+                    const homesQty = this.getTotalHomesByWeek('Re-4-Way Date', week, data)
+
+                    jobs.push(jobsQty)
+                    homes.push(homesQty)
+
+                } else {
+                    targetReached = true
+                }
+
+            }
+            if (targetReached) break;
+            jobsWraper.push([isoWeek, ...jobs])
+            homesWraper.push([isoWeek, ...homes])
+        }
+        // console.log(weeksWraper)
+        return {jobs: jobsWraper, homes: homesWraper }
+    }
+
+    getTotalJobsByWeek(field, date, data) {
         return data.filter(item => {
             return moment(item[field]).isBetween(date.start, date.end);
-
         }).length
     }
 
-
-    getTotalJobsComplexity(field, value, data) {
+    getTotalHomesByWeek(field, date, data) {
         return data.filter(item => {
-            var d = String(item[field]).split('-')
-            var month = d[0] + "-" + d[1]
-
-            return month === value
+            return moment(item[field]).isBetween(date.start, date.end);
         }).reduce((total, item) => {
             var v = Number(item['Complexity (# of Plexes)'])
-            //console.log(v)
             return total + v
         }, 0)
     }
@@ -187,9 +130,6 @@ class ProspectByWeeks extends Component {
         var beginningOfWeek = moment().set('year', year).week(weekNumber).startOf('week');
         var endOfWeek = moment().set('year', year).week(weekNumber).startOf('week').add(6, 'days')
 
-        // console.log(beginningOfWeek.format('ll'));
-        // console.log(endOfWeek.format('ll'));
-
         return { start: beginningOfWeek, end: endOfWeek }
     }
 
@@ -199,6 +139,7 @@ class ProspectByWeeks extends Component {
 
     render() {
         const { showHomes } = this.state
+        const chartColors = ['#b7c0ca', '#00aae6', '#74797d',]
         return (
             <div className="d-flex justify-content-center" style={{ height: '90vh', width: '100vw' }}>
                 {
@@ -228,7 +169,7 @@ class ProspectByWeeks extends Component {
 
                                     options={{
                                         title: showHomes ? 'Jobs Qty' : 'Housing Units',
-                                        colors: ['#b7c0ca', '#74797d', '#00aae6'],
+                                        colors: chartColors,
                                         vAxis: { title: 'Qty', minValue: 0, },
                                         hAxis: { title: 'Month' },
                                         seriesType: 'line',
@@ -250,7 +191,7 @@ class ProspectByWeeks extends Component {
 
                                     options={{
                                         title: showHomes ? 'Jobs Qty' : 'Housing Units',
-                                        colors: ['#b7c0ca', '#74797d', '#00aae6'],
+                                        colors: chartColors,
                                         vAxis: { title: 'Qty', minValue: 0, },
                                         hAxis: { title: 'Month' },
                                         seriesType: 'bars',
