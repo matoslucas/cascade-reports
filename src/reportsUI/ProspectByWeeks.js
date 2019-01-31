@@ -71,6 +71,8 @@ class ProspectByWeeks extends Component {
 
     createDataForChart(data) {
         // try to print 53 weeks
+        // console.log(data)
+
         let jobsWraper = []
         let homesWraper = []
         let targetReached = false
@@ -98,7 +100,10 @@ class ProspectByWeeks extends Component {
             homesWraper.push([isoWeek, ...homes])
         }
         // console.log(weeksWraper)
-        return {jobs: jobsWraper, homes: homesWraper }
+        return {
+            jobs: jobsWraper,
+            homes: homesWraper
+        }
     }
 
     getTotalJobsByWeek(field, date, data) {
@@ -144,11 +149,17 @@ class ProspectByWeeks extends Component {
         const hAxis = { title: 'Week' }
         const trendLineForChart = {
             0: {
-              type: 'polynomial',
-              visibleInLegend: true,
-              color: 'red'
+                type: 'polynomial',
+                visibleInLegend: false,
+                color: 'red'
             }
-          }
+            ,
+            1: {
+                type: 'polynomial',
+                visibleInLegend: false,
+                color: 'orange'
+            }
+        }
         return (
             <div className="d-flex justify-content-center" style={{ height: '90vh', width: '100vw' }}>
                 {
