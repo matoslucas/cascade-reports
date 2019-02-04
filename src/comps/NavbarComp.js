@@ -64,7 +64,7 @@ class NavbarComp extends React.Component {
                         <NavItem style={tabStyle}>
                             <NavLink activeClassName="activeTab" style={linkStyle} to="/dashboard">Dashboard</NavLink>
                         </NavItem>
-                        
+
 
                         <NavItem>
                             <Dropdown>
@@ -72,6 +72,7 @@ class NavbarComp extends React.Component {
                                     <div className="d-md-inline">Prospect</div>
                                 </DropdownToggle>
                                 <DropdownMenu right>
+                                    <DropdownItem href="/prospect/tasktype">By Task Type</DropdownItem>
                                     <DropdownItem href="/prospect/weeks">By Weeks</DropdownItem>
                                     <DropdownItem href="/prospect/years">By Year</DropdownItem>
                                     <DropdownItem href="/prospect/since">Since 2016-2018</DropdownItem>
@@ -87,22 +88,22 @@ class NavbarComp extends React.Component {
                                 </DropdownToggle>
                                 <DropdownMenu right>
                                     <DropdownItem href="/timelines">All Jobs</DropdownItem>
-                                    <DropdownItem href="timeline/Ivory">Ivory Jobs </DropdownItem>
-                                    <DropdownItem href="tasks/all">All Jobs Tasks </DropdownItem>
+                                    <DropdownItem href="/timeline/Ivory">Ivory Jobs </DropdownItem>
+                                    <DropdownItem href="/tasks/all">All Jobs Tasks </DropdownItem>
                                 </DropdownMenu>
                             </Dropdown>
                         </NavItem>
 
                     </NavbarNav>
                     <NavbarNav right>
-                       
+
                         <NavItem>
                             <Dropdown>
                                 <DropdownToggle nav caret>
                                     <Fa icon="user" />
                                 </DropdownToggle>
                                 <DropdownMenu className="dropdown-default" right>
-                                    <DropdownItem onClick={()=>{this.triggerAction('logout')}}>LogOut</DropdownItem>
+                                    <DropdownItem onClick={() => { this.triggerAction('logout') }}>LogOut</DropdownItem>
                                 </DropdownMenu>
                             </Dropdown>
                         </NavItem>
