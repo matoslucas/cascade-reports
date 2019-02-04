@@ -86,8 +86,9 @@ class NavbarComp extends React.Component {
                                     <div className="d-md-inline">TimeLine</div>
                                 </DropdownToggle>
                                 <DropdownMenu right>
-                                    <DropdownItem href="/timelines">All</DropdownItem>
-                                    <DropdownItem href="timeline/Ivory">Ivory</DropdownItem>
+                                    <DropdownItem href="/timelines">All Jobs</DropdownItem>
+                                    <DropdownItem href="timeline/Ivory">Ivory Jobs </DropdownItem>
+                                    <DropdownItem href="tasks/all">All Jobs Tasks </DropdownItem>
                                 </DropdownMenu>
                             </Dropdown>
                         </NavItem>
