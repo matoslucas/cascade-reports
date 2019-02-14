@@ -16,7 +16,8 @@ class Prospects extends Component {
             case 'weeks' : return <ProspectByWeeks viewId={Views[id]}/>
             case 'since' : return  <ProspectSince2016 viewId={Views[id]}/>
             case 'years' : return <ProspectByYear />
-            case 'tasktype' : return <ProspectByTaskType  viewId={Views[id]} />
+            case 'mainTask' : return <ProspectByTaskType  viewId={Views[id]} showMain={true}/>
+            case 'secondaryTask' : return <ProspectByTaskType  viewId={Views[id]} showMain={false}/>
             default: return <div>No data</div>
         }
        

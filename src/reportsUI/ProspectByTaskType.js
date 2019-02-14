@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import Radio from '@material-ui/core/Radio';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormControl from '@material-ui/core/FormControl';
-
+import TaskRadioGroup from '../comps/TaskRadioGroup'
+/*
+import worker from '../workers/app.worker';
+import WebWorker from '../workers/WebWorker';
+*/
 import Config from '../utils/Trackvia.config'
 // import TaskList from '../utils/TaskList'
 import TrackviaAPI from '../trackvia-api'
@@ -33,8 +33,9 @@ class ProspectByTaskType extends Component {
                 soffitFascia: ['Week', '2018', '2019'],
                 removeScaff: ['Week', '2018', '2019'],
             },
-            type: 'setScaff',
+            type: props.showMain ? 'setScaff' : 'lathInspection',
             loading: true,
+            progressLabel: 'Loading...',
         }
         this.loadDataFromApi = this.loadDataFromApi.bind(this)
         this.resultResponse = this.resultResponse.bind(this)
@@ -44,35 +45,66 @@ class ProspectByTaskType extends Component {
 
 
     componentDidMount() {
+
         this.loadDataFromApi()
     }
 
 
     loadDataFromApi() {
         const { viewId } = this.props
+        console.log('Tarckvia View Id: ' + viewId)
         const api = new TrackviaAPI(Config.apiKey, Config.accessToken, Config.env)
-        api.getView(viewId, { start: 0, max: 3000 }).then(this.resultResponse)
+        api.getView(viewId, { start: 0, max: 15000 }).then(this.resultResponse)
     }
 
     resultResponse(results) {
 
+        console.log('resultResponse')
+
+
         const data = results.data
         // console.log(data)
+        this.setState({
+            progressLabel: 'Parsing data ...'
+        })
+
         let dataWraper = []
         if (Array.isArray(data)) {
 
             dataWraper = this.createDataForChart(data)
+            /*
+            this.worker = new WebWorker(worker);
+            console.log(data)
+            this.worker.postMessage(data);
+
+            this.worker.addEventListener('message', event => {
+                // const sortedList = event.data;
+                console.log('App', event.data)
+                dataWraper = event.data;
+
+                this.setState({
+                    loading: false,
+                    chartData: dataWraper.setScaff,
+                    tasks: dataWraper,
+        
+                }, () => {
+                    // console.log(this.state)
+                })
+
+            });
+            */
+            this.setState({
+                loading: false,
+                chartData: dataWraper.setScaff,
+                tasks: dataWraper,
+
+            }, () => {
+                // console.log(this.state)
+            })
 
         }
 
-        this.setState({
-            loading: false,
-            chartData: dataWraper.setScaff,
-            tasks: dataWraper,
 
-        }, () => {
-            // console.log(this.state)
-        })
 
 
     }
@@ -147,6 +179,8 @@ class ProspectByTaskType extends Component {
                     const week = this.getDateRangesFromWeekNumber(isoWeek, year)
                     var alltypes = this.getTotalByWeekofTaskTypeWraper('Completed Date/Time', week, data)
 
+                    // console.log(alltypes)
+
 
                     tasksWraper.setScaff.push(alltypes.setScaff)
                     tasksWraper.paperWire.push(alltypes.paperWire)
@@ -210,7 +244,7 @@ class ProspectByTaskType extends Component {
             foundationPlaster.push([isoWeek, ...tasksWraper.foundationPlaster])
             finalInspection.push([isoWeek, ...tasksWraper.finalInspection])
         }
-        //console.log(scaffWraper)
+
 
         return {
             setScaff,
@@ -301,7 +335,7 @@ class ProspectByTaskType extends Component {
         data.filter(item => {
             return moment(item[field]).isBetween(date.start, date.end);
         }).forEach(item => {
-
+            // console.log(item['Task Type'])
             switch (item['Task Type']) {
                 case 'Set Scaff': setScaff++
                     break;
@@ -408,7 +442,8 @@ class ProspectByTaskType extends Component {
     }
 
     render() {
-        const { type } = this.state
+        const { type, progressLabel } = this.state
+        const { showMain } = this.props
         const chartColors = ['#b7c0ca', '#00aae6', '#74797d',]
         const vAxis = { title: 'Qty', minValue: 0, }
         const hAxis = { title: 'Week' }
@@ -432,40 +467,8 @@ class ProspectByTaskType extends Component {
                         <div className="loader border-top-info"></div>
                         : <div style={{ width: '100%' }}>
 
-                            <FormControl component="fieldset" >
-                                <RadioGroup style={{ flexDirection: 'row', marginLeft: 15 }}
-                                    value={type}
-                                    onChange={this.handleChange}
-                                >
-                                    <FormControlLabel value="setScaff" control={<Radio />} label="Set Scaff"  />
-                                    <FormControlLabel value="paperWire" control={<Radio />} label="Paper/Wire" />
-                                    <FormControlLabel value="housewrap" control={<Radio />} label="Housewrap" />
-                                    <FormControlLabel value="lathInspection" control={<Radio />} label="Lath Inspection" />
-                                    <FormControlLabel value="weatherBarrierInspection" control={<Radio />} label="Weather Barrier Inspection" />
-                                    <FormControlLabel value="tentHeat" control={<Radio />} label="Tent & Heat" />
-                                    <FormControlLabel value="stuccoBrown" control={<Radio />} label="Stucco Brown" />
-                                    <FormControlLabel value="watering" control={<Radio />} label="Watering" />
-                                    <FormControlLabel value="jChannel" control={<Radio />} label="J-Channel" />
-                                    <FormControlLabel value="siding" control={<Radio />} label="Siding" />
-                                    <FormControlLabel value="specialCorbels" control={<Radio />} label="Special Corbels" />
-                                    <FormControlLabel value="paint" control={<Radio />} label="Paint" />
-                                    <FormControlLabel value="rock" control={<Radio />} label="Rock" />
-                                    <FormControlLabel value="brick" control={<Radio />} label="Brick" />
-                                    <FormControlLabel value="soffitFascia" control={<Radio />} label="Soffit/Fascia" />
-                                    <FormControlLabel value="stuccoColor" control={<Radio />} label="Stucco Color" />
-                                    <FormControlLabel value="shutters" control={<Radio />} label="Shutters" />
-                                    <FormControlLabel value="miscWork" control={<Radio />} label="Misc. Work" />
-                                    <FormControlLabel value="cleanup" control={<Radio />} label="Cleanup" />
-                                    <FormControlLabel value="gutters" control={<Radio />} label="Gutters" />
-                                    <FormControlLabel value="vpoWork" control={<Radio />} label="VPO Work" />
-                                    <FormControlLabel value="warrantyWork" control={<Radio />} label="Warranty Work" />
-                                    <FormControlLabel value="touchUps" control={<Radio />} label="Touch Ups" />
-                                    <FormControlLabel value="removeScaff" control={<Radio />} label="Remove Scaff" />
-                                    <FormControlLabel value="foundationPlaster" control={<Radio />} label="Foundation Plaster" />
-                                    <FormControlLabel value="finalInspection" control={<Radio />} label="Final Inspection" />
-                                
-                                </RadioGroup>
-                            </FormControl>
+                            <TaskRadioGroup onChange={this.handleChange} type={type} filter={showMain ? 'Main' : 'Secondary'} />
+
 
                             <div className="d-flex flex-column justify-content-center align-items-center"
                                 style={{ height: '100%', width: '100vw' }}>

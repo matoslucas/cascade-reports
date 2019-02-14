@@ -7,6 +7,7 @@ const View = {
     AllTask: 933, // Lucas | Jobs Tasks
     weeks: 941, // Custom Reporting | Prospect by week | 2018-2019
     since: 927, // Custom Reporting | Prospect Since 2016-2018
-    tasktype: 943, // Custom Reporting | Jobs Tasks , using filter from 2018 year
+    mainTask: 943, // Custom Reporting | Jobs Tasks Main, using filter from 2018 year
+    secondaryTask: 949, // Custom Reporting | Jobs Tasks Secondary , using filter from 2018 year
 }
 export default View
