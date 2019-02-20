@@ -36,17 +36,20 @@ class AllTaskChart extends Component {
     loadDataFromApi() {
 
 
-        const { viewId, id } = this.props
+        let { viewId, id } = this.props
 
-        console.log('loadDataFromApi', viewId, id)
+    
 
         const api = new TrackviaAPI(Config.apiKey, Config.accessToken, Config.env);
         const query = id //'134-Waters Edge-Woodside'
         if (id === 'all') {
+            viewId= 950
             api.getView(950, { start: 0, max: 15000 }).then(this.responseHandler)
         } else {
             api.getView(viewId, { start: 0, max: 15000 }, query).then(this.responseHandler)
         }
+
+        console.log('loadDataFromApi', viewId, id)
 
     }
 
