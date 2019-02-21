@@ -46,6 +46,7 @@ class TrackviaAPI {
         try {
             const loginResponse = await tvRequest.post('/oauth/token', params);
             if (loginResponse.access_token) {
+                localStorage.setItem('accessToken', loginResponse.access_token);
                 auth.setAccessToken(loginResponse.access_token);
                 auth.setRefreshToken(loginResponse.refresh_token, loginResponse.expires_in);
             } else {

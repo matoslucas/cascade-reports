@@ -22,13 +22,24 @@ const ProtectedRoute = (WrappedComponent) => {
     isAuthenticated() {
       const _self = this
 
-      let promise = auth.isAuthenticated()
+      let isAuthenticated = auth.isAuthenticated()
+      /*
       promise.then(user => {
         _self.setState({ isAuthenticated: true, isLoading: false })
       }).catch(e => {
         console.log(e)
         _self.setState({ isAuthenticated: false, isLoading: false })
       })
+      */
+
+     if(isAuthenticated){
+      this.setState({ isAuthenticated: true, isLoading: false })
+      
+     }else{
+      this.setState({ isAuthenticated: false, isLoading: false })
+     }
+      console.log('isAuthenticated', isAuthenticated)
+     
 
     }
 

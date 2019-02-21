@@ -26,7 +26,8 @@ class Login extends Component {
     isAuthenticated() {
         const _self = this
 
-        let promise = auth.isAuthenticated()
+        const isAuthenticated = auth.isAuthenticated()
+        /*
         promise.then(user => {
             _self.setState({ isAuthenticated: true, isLoading: false })
             _self.props.history.push("/dashboard");
@@ -34,7 +35,14 @@ class Login extends Component {
             console.log(e)
             _self.setState({ isAuthenticated: false, isLoading: false })
         })
-
+        */
+       if(isAuthenticated){
+        this.setState({ isAuthenticated: true, isLoading: false })
+        this.props.history.push("/dashboard");
+       }else{
+        this.setState({ isAuthenticated: false, isLoading: false })
+       }
+        console.log('isAuthenticated', isAuthenticated)
     }
 
 
@@ -46,6 +54,7 @@ class Login extends Component {
             alert(error.message)
 
         }).then(function (e) {
+            console.log(e)
 
             if (e) {
                 _self.props.history.push("/dashboard");

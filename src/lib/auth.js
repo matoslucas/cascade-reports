@@ -2,57 +2,74 @@
  * Singleton service for handling authentication and API keys
  */
 const __tv_host = 'https://go.trackvia.com:443';
- class Auth {
-     setUserKey(userKey) {
+class Auth {
+    setUserKey(userKey) {
         this.userKey = userKey;
-     }
+    }
 
-     getUserKey() {
-         return this.userKey;
-     }
+    getUserKey() {
+        return this.userKey;
+    }
 
-     setAccessToken(accessToken) {
-         this.accessToken = accessToken;
-     }
+    setAccessToken(accessToken) {
+        this.accessToken = accessToken;
+        //localStorage.setItem('accessToken', accessToken);
+    }
 
-     getAccessToken() {
-         return this.accessToken;
-     }
+    getAccessToken() {
+        return this.accessToken;
+        //return localStorage.getItem('accessToken');
+    }
 
-     getRefreshToken() {
-         return this.refreshToken;
-     }
+    getRefreshToken() {
+        return this.refreshToken;
+    }
 
-     setRefreshToken(refreshToken, secondsUntilExpiration) {
-         this.refreshToken = refreshToken;
-         if (typeof secondsUntilExpiration !== 'number') {
+    setRefreshToken(refreshToken, secondsUntilExpiration) {
+        this.refreshToken = refreshToken;
+        console.log(secondsUntilExpiration)
+        if (typeof secondsUntilExpiration !== 'number') {
             secondsUntilExpiration = parseInt(secondsUntilExpiration);
-         }
+        }
 
-         if (this.refreshTimer) {
-             clearTimeout(this.refreshTimer);
-         }
+        if (this.refreshTimer) {
+            clearTimeout(this.refreshTimer);
+        }
 
-         // Refresh token 15 seconds before it expires
-         this.refreshTimer = setTimeout(() => {
-             this.doRefreshToken();
-         }, (secondsUntilExpiration - 15) * 1000);
-     }
+        // Refresh token 15 seconds before it expires
+        this.refreshTimer = setTimeout(() => {
+            this.doRefreshToken();
+        }, (secondsUntilExpiration - 15) * 1000);
+    }
 
-     async doRefreshToken() {
+    doRefreshToken() {
         const params = {
-             client_id: 'TrackViaAPI',
-             grant_type: 'refresh_token',
-             refresh_token: this.refreshToken
-         };
+            client_id: 'TrackViaAPI',
+            grant_type: 'refresh_token',
+            refresh_token: this.refreshToken
+        };
 
-         
-        const refreshTokenResponse = fetch(`${__tv_host}/oath/token`, {
-            method: 'POST',
-            body: JSON.stringify(params)
-        });
+        console.log('doRefreshToken')
+        localStorage.removeItem('accessToken');
 
-        const refreshTokenJSON = await refreshTokenResponse.json();
+            /*
+            const refreshTokenResponse = fetch(`${__tv_host}/oauth/token`, {
+                method: 'POST',
+                body: JSON.stringify(params)
+            })
+            .then(response => {
+                console.log(response)
+                //const data = response.json()
+
+            }).catch(function (error) {
+                console.log('Request failed', error);
+            });
+            */
+            /*
+
+        console.log(refreshTokenResponse)
+
+        let refreshTokenJSON = await refreshTokenResponse.json();
 
         if (refreshTokenJSON.access_token) {
             this.setAccessToken(refreshTokenJSON.access_token);
@@ -60,7 +77,8 @@ const __tv_host = 'https://go.trackvia.com:443';
         } else {
             throw new Error('Access token not returned from doRefreshToken()');
         }
-     }
- }
+        */
+    }
+}
 
- export default new Auth();
+export default new Auth();
