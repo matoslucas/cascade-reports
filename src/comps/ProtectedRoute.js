@@ -20,7 +20,7 @@ const ProtectedRoute = (WrappedComponent) => {
     }
 
     isAuthenticated() {
-      const _self = this
+      //const _self = this
 
       let isAuthenticated = auth.isAuthenticated()
       /*
@@ -38,7 +38,7 @@ const ProtectedRoute = (WrappedComponent) => {
      }else{
       this.setState({ isAuthenticated: false, isLoading: false })
      }
-      console.log('isAuthenticated', isAuthenticated)
+      //console.log('isAuthenticated', isAuthenticated)
      
 
     }

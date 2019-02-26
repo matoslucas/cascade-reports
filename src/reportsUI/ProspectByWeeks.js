@@ -6,6 +6,8 @@ import Config from '../utils/Trackvia.config'
 import TrackviaAPI from '../trackvia-api'
 import Chart from 'react-google-charts';
 
+import { getDateRangesFromWeekNumber, getTotalWeeksFromYear } from '../utils/common'
+
 import moment from 'moment'
 
 class ProspectByWeeks extends Component {
@@ -80,9 +82,9 @@ class ProspectByWeeks extends Component {
             let jobs = []
             let homes = []
             for (let year = 2018; year <= 2019; year++) {
-                const yearWeekLen = this.getTotalWeeksFromYear(year)
+                const yearWeekLen = getTotalWeeksFromYear(year)
                 if (isoWeek <= yearWeekLen) {
-                    const week = this.getDateRangesFromWeekNumber(isoWeek, year)
+                    const week = getDateRangesFromWeekNumber(isoWeek, year)
 
                     const jobsQty = this.getTotalJobsByWeek('Re-4-Way Date', week, data)
                     const homesQty = this.getTotalHomesByWeek('Re-4-Way Date', week, data)
@@ -129,7 +131,7 @@ class ProspectByWeeks extends Component {
             this.setState({ chartData: jobs, showHomes: true })
         }
     }
-
+/*
     getDateRangesFromWeekNumber(weekNumber, year) {
 
         var beginningOfWeek = moment().set('year', year).week(weekNumber).startOf('week');
@@ -137,11 +139,12 @@ class ProspectByWeeks extends Component {
 
         return { start: beginningOfWeek, end: endOfWeek }
     }
-
+*/
+/*
     getTotalWeeksFromYear(year) {
         return moment().set('year', year).isoWeeksInYear()
     }
-
+*/
     render() {
         const { showHomes } = this.state
         const chartColors = ['#b7c0ca', '#00aae6', '#74797d',]

@@ -1,4 +1,4 @@
-import firebase from '../firebase/Firebase'
+// import firebase from '../firebase/Firebase'
 
 import Config from '../utils/Trackvia.config'
 import TrackviaAPI from '../trackvia-api'

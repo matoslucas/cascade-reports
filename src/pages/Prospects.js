@@ -3,6 +3,7 @@ import Views from '../utils/Views'
 import ProspectSince2016 from '../reportsUI/ProspectSince2016'
 import ProspectByYear from '../reportsUI/ProspectByYear'
 import ProspectByWeeks from '../reportsUI/ProspectByWeeks'
+import ProspectByWeeksComplexity from '../reportsUI/ProspectByWeeksComplexity'
 import ProspectByTaskType from '../reportsUI/ProspectByTaskType'
 
 class Prospects extends Component {
@@ -18,6 +19,7 @@ class Prospects extends Component {
             case 'years' : return <ProspectByYear />
             case 'mainTask' : return <ProspectByTaskType  viewId={Views[id]} showMain={true}/>
             case 'secondaryTask' : return <ProspectByTaskType  viewId={Views[id]} showMain={false}/>
+            case 'complexity' : return <ProspectByWeeksComplexity viewId={Views[id]} />
             default: return <div>No data</div>
         }
        

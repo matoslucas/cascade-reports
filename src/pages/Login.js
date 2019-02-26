@@ -24,7 +24,7 @@ class Login extends Component {
     }
 
     isAuthenticated() {
-        const _self = this
+        // const _self = this
 
         const isAuthenticated = auth.isAuthenticated()
         /*

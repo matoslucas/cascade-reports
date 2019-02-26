@@ -10,5 +10,6 @@ const View = {
     since: 927, // Custom Reporting | Prospect Since 2016-2018
     mainTask: 943, // Custom Reporting | Jobs Tasks Main, using filter from 2018 year
     secondaryTask: 949, // Custom Reporting | Jobs Tasks Secondary , using filter from 2018 year
+    complexity: 953, // Custom Reporting | Jobs Tasks ( Scaffolding )
 }
 export default View
