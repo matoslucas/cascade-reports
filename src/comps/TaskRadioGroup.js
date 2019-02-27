@@ -55,7 +55,7 @@ class TaskRadioGroup extends React.Component {
     render() {
 
         const { onChange, type, filter } = this.props
-        console.log(type)
+        // console.log(type)
 
         return (
             <FormControl component="fieldset" >

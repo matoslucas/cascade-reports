@@ -56,7 +56,7 @@ class ProspectByWeeksComplexity extends Component {
             tasks: dataWraper,
 
         }, () => {
-            console.log(this.state)
+           // console.log(this.state)
         })
 
     }
@@ -134,83 +134,83 @@ class ProspectByWeeksComplexity extends Component {
                     // console.log(isoWeek, year, alltypes.complexity, alltypes.setScaff)
 
 
-                    tasksWraper.setScaff.push(alltypes.complexity)
-                    tasksWraper.setScaff.push(alltypes.setScaff)
+                    tasksWraper.setScaff.push(alltypes.setScaff.complexity)
+                    tasksWraper.setScaff.push(alltypes.setScaff.total)
 
-                    tasksWraper.paperWire.push(alltypes.complexity)
-                    tasksWraper.paperWire.push(alltypes.paperWire)
+                    tasksWraper.paperWire.push(alltypes.paperWire.complexity)
+                    tasksWraper.paperWire.push(alltypes.paperWire.total)
 
-                    tasksWraper.housewrap.push(alltypes.complexity)
-                    tasksWraper.housewrap.push(alltypes.housewrap)
+                    tasksWraper.housewrap.push(alltypes.housewrap.complexity)
+                    tasksWraper.housewrap.push(alltypes.housewrap.total)
 
-                    tasksWraper.lathInspection.push(alltypes.complexity)
-                    tasksWraper.lathInspection.push(alltypes.lathInspection)
+                    tasksWraper.lathInspection.push(alltypes.lathInspection.complexity)
+                    tasksWraper.lathInspection.push(alltypes.lathInspection.total)
 
-                    tasksWraper.weatherBarrierInspection.push(alltypes.complexity)
-                    tasksWraper.weatherBarrierInspection.push(alltypes.weatherBarrierInspection)
+                    tasksWraper.weatherBarrierInspection.push(alltypes.weatherBarrierInspection.complexity)
+                    tasksWraper.weatherBarrierInspection.push(alltypes.weatherBarrierInspection.total)
 
-                    tasksWraper.tentHeat.push(alltypes.complexity)
-                    tasksWraper.tentHeat.push(alltypes.tentHeat)
+                    tasksWraper.tentHeat.push(alltypes.tentHeat.complexity)
+                    tasksWraper.tentHeat.push(alltypes.tentHeat.total)
 
-                    tasksWraper.stuccoBrown.push(alltypes.complexity)
-                    tasksWraper.stuccoBrown.push(alltypes.stuccoBrown)
+                    tasksWraper.stuccoBrown.push(alltypes.stuccoBrown.complexity)
+                    tasksWraper.stuccoBrown.push(alltypes.stuccoBrown.total)
 
-                    tasksWraper.watering.push(alltypes.complexity)
-                    tasksWraper.watering.push(alltypes.watering)
+                    tasksWraper.watering.push(alltypes.watering.complexity)
+                    tasksWraper.watering.push(alltypes.watering.total)
 
-                    tasksWraper.jChannel.push(alltypes.complexity)
-                    tasksWraper.jChannel.push(alltypes.jChannel)
+                    tasksWraper.jChannel.push(alltypes.jChannel.complexity)
+                    tasksWraper.jChannel.push(alltypes.jChannel.total)
 
-                    tasksWraper.siding.push(alltypes.complexity)
-                    tasksWraper.siding.push(alltypes.siding)
+                    tasksWraper.siding.push(alltypes.siding.complexity)
+                    tasksWraper.siding.push(alltypes.siding.total)
 
-                    tasksWraper.specialCorbels.push(alltypes.complexity)
-                    tasksWraper.specialCorbels.push(alltypes.specialCorbels)
+                    tasksWraper.specialCorbels.push(alltypes.specialCorbels.complexity)
+                    tasksWraper.specialCorbels.push(alltypes.specialCorbels.total)
 
-                    tasksWraper.paint.push(alltypes.complexity)
-                    tasksWraper.paint.push(alltypes.paint)
+                    tasksWraper.paint.push(alltypes.paint.complexity)
+                    tasksWraper.paint.push(alltypes.paint.total)
 
-                    tasksWraper.rock.push(alltypes.complexity)
-                    tasksWraper.rock.push(alltypes.rock)
+                    tasksWraper.rock.push(alltypes.rock.complexity)
+                    tasksWraper.rock.push(alltypes.rock.total)
 
-                    tasksWraper.brick.push(alltypes.complexity)
-                    tasksWraper.brick.push(alltypes.brick)
+                    tasksWraper.brick.push(alltypes.brick.complexity)
+                    tasksWraper.brick.push(alltypes.brick.total)
 
-                    tasksWraper.soffitFascia.push(alltypes.complexity)
-                    tasksWraper.soffitFascia.push(alltypes.soffitFascia)
+                    tasksWraper.soffitFascia.push(alltypes.soffitFascia.complexity)
+                    tasksWraper.soffitFascia.push(alltypes.soffitFascia.total)
 
-                    tasksWraper.stuccoColor.push(alltypes.complexity)
-                    tasksWraper.stuccoColor.push(alltypes.stuccoColor)
+                    tasksWraper.stuccoColor.push(alltypes.stuccoColor.complexity)
+                    tasksWraper.stuccoColor.push(alltypes.stuccoColor.total)
 
-                    tasksWraper.shutters.push(alltypes.complexity)
-                    tasksWraper.shutters.push(alltypes.shutters)
+                    tasksWraper.shutters.push(alltypes.shutters.complexity)
+                    tasksWraper.shutters.push(alltypes.shutters.total)
 
-                    tasksWraper.miscWork.push(alltypes.complexity)
-                    tasksWraper.miscWork.push(alltypes.miscWork)
+                    tasksWraper.miscWork.push(alltypes.miscWork.complexity)
+                    tasksWraper.miscWork.push(alltypes.miscWork.total)
 
-                    tasksWraper.cleanup.push(alltypes.complexity)
-                    tasksWraper.cleanup.push(alltypes.cleanup)
+                    tasksWraper.cleanup.push(alltypes.cleanup.complexity)
+                    tasksWraper.cleanup.push(alltypes.cleanup.total)
 
-                    tasksWraper.gutters.push(alltypes.complexity)
-                    tasksWraper.gutters.push(alltypes.gutters)
+                    tasksWraper.gutters.push(alltypes.gutters.complexity)
+                    tasksWraper.gutters.push(alltypes.gutters.total)
 
-                    tasksWraper.vpoWork.push(alltypes.complexity)
-                    tasksWraper.vpoWork.push(alltypes.vpoWork)
+                    tasksWraper.vpoWork.push(alltypes.vpoWork.complexity)
+                    tasksWraper.vpoWork.push(alltypes.vpoWork.total)
 
-                    tasksWraper.warrantyWork.push(alltypes.complexity)
-                    tasksWraper.warrantyWork.push(alltypes.warrantyWork)
+                    tasksWraper.warrantyWork.push(alltypes.warrantyWork.complexity)
+                    tasksWraper.warrantyWork.push(alltypes.warrantyWork.total)
 
-                    tasksWraper.touchUps.push(alltypes.complexity)
-                    tasksWraper.touchUps.push(alltypes.touchUps)
+                    tasksWraper.touchUps.push(alltypes.touchUps.complexity)
+                    tasksWraper.touchUps.push(alltypes.touchUps.total)
 
-                    tasksWraper.removeScaff.push(alltypes.complexity)
-                    tasksWraper.removeScaff.push(alltypes.removeScaff)
+                    tasksWraper.removeScaff.push(alltypes.removeScaff.complexity)
+                    tasksWraper.removeScaff.push(alltypes.removeScaff.total)
 
-                    tasksWraper.foundationPlaster.push(alltypes.complexity)
-                    tasksWraper.foundationPlaster.push(alltypes.foundationPlaster)
+                    tasksWraper.foundationPlaster.push(alltypes.foundationPlaster.complexity)
+                    tasksWraper.foundationPlaster.push(alltypes.foundationPlaster.total)
 
-                    tasksWraper.finalInspection.push(alltypes.complexity)
-                    tasksWraper.finalInspection.push(alltypes.finalInspection)
+                    tasksWraper.finalInspection.push(alltypes.finalInspection.complexity)
+                    tasksWraper.finalInspection.push(alltypes.finalInspection.total)
 
                 } else {
                     targetReached = true

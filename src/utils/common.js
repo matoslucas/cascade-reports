@@ -8,32 +8,32 @@ import moment from 'moment'
 export const getTotalByWeekofTaskTypeWraper = (field, date, data) => {
     let total = 0
     let complexity = 0
-    let setScaff = 0
-    let paperWire = 0
-    let housewrap = 0
-    let lathInspection = 0
-    let weatherBarrierInspection = 0
-    let tentHeat = 0
-    let stuccoBrown = 0
-    let watering = 0
-    let jChannel = 0
-    let siding = 0
-    let specialCorbels = 0
-    let paint = 0
-    let rock = 0
-    let brick = 0
-    let soffitFascia = 0
-    let stuccoColor = 0
-    let shutters = 0
-    let miscWork = 0
-    let cleanup = 0
-    let gutters = 0
-    let vpoWork = 0
-    let warrantyWork = 0
-    let touchUps = 0
-    let removeScaff = 0
-    let foundationPlaster = 0
-    let finalInspection = 0
+    let setScaff = {total: 0, complexity: 0}
+    let paperWire = {total: 0, complexity: 0}
+    let housewrap = {total: 0, complexity: 0}
+    let lathInspection = {total: 0, complexity: 0}
+    let weatherBarrierInspection = {total: 0, complexity: 0}
+    let tentHeat = {total: 0, complexity: 0}
+    let stuccoBrown = {total: 0, complexity: 0}
+    let watering = {total: 0, complexity: 0}
+    let jChannel = {total: 0, complexity: 0}
+    let siding = {total: 0, complexity: 0}
+    let specialCorbels = {total: 0, complexity: 0}
+    let paint = {total: 0, complexity: 0}
+    let rock = {total: 0, complexity: 0}
+    let brick = {total: 0, complexity: 0}
+    let soffitFascia = {total: 0, complexity: 0}
+    let stuccoColor = {total: 0, complexity: 0}
+    let shutters = {total: 0, complexity: 0}
+    let miscWork = {total: 0, complexity: 0}
+    let cleanup = {total: 0, complexity: 0}
+    let gutters = {total: 0, complexity: 0}
+    let vpoWork = {total: 0, complexity: 0}
+    let warrantyWork = {total: 0, complexity: 0}
+    let touchUps = {total: 0, complexity: 0}
+    let removeScaff = {total: 0, complexity: 0}
+    let foundationPlaster = {total: 0, complexity: 0}
+    let finalInspection = {total: 0, complexity: 0}
 
     data.filter(item => {
         return moment(item[field]).isBetween(date.start, date.end);
@@ -44,57 +44,57 @@ export const getTotalByWeekofTaskTypeWraper = (field, date, data) => {
             
 
         switch (item['Task Type']) {
-            case 'Set Scaff': setScaff++
+            case 'Set Scaff': setScaff.total++; setScaff.complexity += Number(item['Complexity (# of Plexes)']);
                 break;
-            case 'Paper/Wire': paperWire++
+            case 'Paper/Wire': paperWire.total++; paperWire.complexity += Number(item['Complexity (# of Plexes)']);
                 break;
-            case 'Housewrap': housewrap++
+            case 'Housewrap': housewrap.total++; housewrap.complexity += Number(item['Complexity (# of Plexes)']);
                 break;
-            case 'Lath Inspection': lathInspection++
+            case 'Lath Inspection': lathInspection.total++; lathInspection.complexity += Number(item['Complexity (# of Plexes)']);
                 break;
-            case 'Weather Barrier Inspection': weatherBarrierInspection++
+            case 'Weather Barrier Inspection': weatherBarrierInspection.total++; weatherBarrierInspection.complexity += Number(item['Complexity (# of Plexes)']);
                 break;
-            case 'Tent & Heat': tentHeat++
+            case 'Tent & Heat': tentHeat.total++; tentHeat.complexity += Number(item['Complexity (# of Plexes)']);
                 break;
-            case 'Stucco Brown': stuccoBrown++
+            case 'Stucco Brown': stuccoBrown.total++; stuccoBrown.complexity += Number(item['Complexity (# of Plexes)']);
                 break;
-            case 'Watering': watering++
+            case 'Watering': watering.total++; watering.complexity += Number(item['Complexity (# of Plexes)']);
                 break;
-            case 'J-Channel': jChannel++
+            case 'J-Channel': jChannel.total++; jChannel.complexity += Number(item['Complexity (# of Plexes)']);
                 break;
-            case 'Siding': siding++
+            case 'Siding': siding.total++; siding.complexity += Number(item['Complexity (# of Plexes)']);
                 break;
-            case 'Special Corbels': specialCorbels++
+            case 'Special Corbels': specialCorbels.total++; specialCorbels.complexity += Number(item['Complexity (# of Plexes)']);
                 break;
-            case 'Paint': paint++
+            case 'Paint': paint.total++; paint.complexity += Number(item['Complexity (# of Plexes)']);
                 break;
-            case 'Rock': rock++
+            case 'Rock': rock.total++; rock.complexity += Number(item['Complexity (# of Plexes)']);
                 break;
-            case 'Brick': brick++
+            case 'Brick': brick.total++; brick.complexity += Number(item['Complexity (# of Plexes)']);
                 break;
-            case 'Soffit/Fascia': soffitFascia++
+            case 'Soffit/Fascia': soffitFascia.total++; soffitFascia.complexity += Number(item['Complexity (# of Plexes)']);
                 break;
-            case 'Stucco Color': stuccoColor++
+            case 'Stucco Color': stuccoColor.total++; stuccoColor.complexity += Number(item['Complexity (# of Plexes)']);
                 break;
-            case 'Shutters': shutters++
+            case 'Shutters': shutters.total++; shutters.complexity += Number(item['Complexity (# of Plexes)']);
                 break;
-            case 'Misc. Work': miscWork++
+            case 'Misc. Work': miscWork.total++; miscWork.complexity += Number(item['Complexity (# of Plexes)']);
                 break;
-            case 'Cleanup': cleanup++
+            case 'Cleanup': cleanup.total++; cleanup.complexity += Number(item['Complexity (# of Plexes)']);
                 break;
-            case 'Gutters': gutters++
+            case 'Gutters': gutters.total++; gutters.complexity += Number(item['Complexity (# of Plexes)']);
                 break;
-            case 'VPO Work': vpoWork++
+            case 'VPO Work': vpoWork.total++; vpoWork.complexity += Number(item['Complexity (# of Plexes)']);
                 break;
-            case 'Warranty Work': warrantyWork++
+            case 'Warranty Work': warrantyWork.total++; warrantyWork.complexity += Number(item['Complexity (# of Plexes)']);
                 break;
-            case 'Touch Ups': touchUps++
+            case 'Touch Ups': touchUps.total++; touchUps.complexity += Number(item['Complexity (# of Plexes)']);
                 break;
-            case 'Remove Scaff': removeScaff++
+            case 'Remove Scaff': removeScaff.total++; removeScaff.complexity += Number(item['Complexity (# of Plexes)']);
                 break;
-            case 'Foundation Plaster': foundationPlaster++
+            case 'Foundation Plaster': foundationPlaster.total++; foundationPlaster.complexity += Number(item['Complexity (# of Plexes)']);
                 break;
-            case 'Final Inspection': finalInspection++
+            case 'Final Inspection': finalInspection.total++; finalInspection.complexity += Number(item['Complexity (# of Plexes)']);
                 break;
             default:
         }
