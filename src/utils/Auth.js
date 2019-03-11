@@ -1,4 +1,4 @@
-// import firebase from '../firebase/Firebase'
+import firebase from '../firebase/Firebase'
 
 import Config from '../utils/Trackvia.config'
 import TrackviaAPI from '../trackvia-api'
@@ -8,7 +8,8 @@ const api = new TrackviaAPI(Config.apiKey, Config.accessToken, Config.env);
 class Auth {
   
   isAuthenticated() {
-    /*
+    //console.log('isAuthenticated')
+ 
       const fetchUser = new Promise((resolve, reject) => {
         firebase.auth().onAuthStateChanged(function (user) {
           if (user) {
@@ -20,35 +21,36 @@ class Auth {
       })
 
   return fetchUser
- */
-return localStorage.getItem('accessToken');
+ 
+//return localStorage.getItem('accessToken');
   }
 
-  login(p, cb) {
-    
-    //const _self = this
-    //return firebase.auth().signInWithEmailAndPassword(p.user, p.pass)
+  login(p) {
+    return firebase.auth().signInWithEmailAndPassword(p.user, p.pass)    
+  }
+
+  loginApi(p) {
     return api.login(p.user, p.pass)
-    
-    
+  }
+
+  createFirebaseUser(p) {
+    return firebase.auth().createUserWithEmailAndPassword(p.user, p.pass)
   }
 
   logout(cb) {
 
     localStorage.removeItem('accessToken');
-    console.log('Signed Out');
-    this._authenticated = false;
-    cb('pepe');
-    /*
+    console.log('Signed Out');   
+    
     const _self = this
     firebase.auth().signOut().then(function() {
       console.log('Signed Out');
       _self._authenticated = false;
-      cb('pepe');
+      cb();
     }, function(error) {
       console.error('Sign Out Error', error);
     });
- */
+ 
   }
 
 }

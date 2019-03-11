@@ -24,10 +24,10 @@ class Login extends Component {
     }
 
     isAuthenticated() {
-        // const _self = this
+        const _self = this
 
-        const isAuthenticated = auth.isAuthenticated()
-        /*
+        const promise = auth.isAuthenticated()
+        
         promise.then(user => {
             _self.setState({ isAuthenticated: true, isLoading: false })
             _self.props.history.push("/dashboard");
@@ -35,14 +35,15 @@ class Login extends Component {
             console.log(e)
             _self.setState({ isAuthenticated: false, isLoading: false })
         })
-        */
+        //console.log(promise)
+        /*
        if(isAuthenticated){
         this.setState({ isAuthenticated: true, isLoading: false })
         this.props.history.push("/dashboard");
        }else{
         this.setState({ isAuthenticated: false, isLoading: false })
-       }
-        console.log('isAuthenticated', isAuthenticated)
+       }*/
+       // console.log('isAuthenticated', isAuthenticated)
     }
 
 
@@ -50,8 +51,9 @@ class Login extends Component {
         const _self = this
         auth.login(this.state).catch(function (error) {
             // Handle Errors here.
-            console.log(error)
-            alert(error.message)
+            console.log('onLogin',error)
+            //alert(error.message)
+            _self.loginOnTrackviaApi(_self.state)
 
         }).then(function (e) {
             console.log(e)
@@ -63,6 +65,43 @@ class Login extends Component {
         });
 
 
+    }
+
+    loginOnTrackviaApi(credentials) {
+        const _self = this
+        auth.loginApi(credentials).catch(function (error) {
+            // Handle Errors here.
+            console.log('loginOnTrackviaApi', error)
+            alert(error.message)
+           
+
+        }).then(function (e) {
+            console.log(e)
+
+            if (e) {
+                // create firebase account
+                _self.createFirebaseAccount(credentials)
+            }
+
+        });
+    }
+
+    createFirebaseAccount(credentials){
+        const _self = this
+        auth.createFirebaseUser(credentials).catch(function (error) {
+            // Handle Errors here.
+            console.log('createFirebaseAccount', error)
+                     
+
+        }).then(function (e) {
+            console.log(e)
+
+            if (e) {
+              
+                _self.props.history.push("/dashboard");
+            }
+
+        });
     }
 
     handleChange(event) {
