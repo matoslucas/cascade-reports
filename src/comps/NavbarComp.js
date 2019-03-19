@@ -65,7 +65,6 @@ class NavbarComp extends React.Component {
                             <NavLink activeClassName="activeTab" style={linkStyle} to="/dashboard">Dashboard</NavLink>
                         </NavItem>
 
-
                         <NavItem>
                             <Dropdown>
                                 <DropdownToggle nav caret>
@@ -95,6 +94,10 @@ class NavbarComp extends React.Component {
                                     <DropdownItem href="/tasks/all">All Jobs Tasks </DropdownItem>
                                 </DropdownMenu>
                             </Dropdown>
+                        </NavItem>
+
+                        <NavItem style={tabStyle}>
+                            <NavLink style={linkStyle} to="/inspections">Inspections</NavLink>
                         </NavItem>
 
                     </NavbarNav>
