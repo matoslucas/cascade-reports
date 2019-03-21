@@ -14,16 +14,7 @@ class Inspections extends Component {
         super(props)
         // Don't call this.setState() here!
         this.state = {
-            chartData: [
-                [
-                    'Team',
-                    'Excellent',
-                    'Very Good',
-                    'Sufficient',
-                    'Really Bad',
-                    'Not Complete',
-                ]
-            ],
+            chartData: [],
             loading: true,
         }
 
@@ -60,14 +51,7 @@ class Inspections extends Component {
 
     createDataForChart(data) {
 
-        let chartData = [[
-            'Team',
-            'Excellent',
-            'Very Good',
-            'Sufficient',
-            'Really Bad',
-            'Not Complete',
-        ]]
+        let chartData = []
         if (Array.isArray(data)) {
 
             const teams = this.getTeams(data)
@@ -150,24 +134,85 @@ class Inspections extends Component {
         return inspectionResults
     }
 
+    sortData(data) {
+        return data.sort((a, b) => {
+            var a1 = a[1];
+            var b1 = b[1];
+            if (a1 === b1) return 0;
+            return a1 > b1 ? -1 : 1;
+        });
+    }
+
+    getCharts(data) {
+        let toRet = []
+        const colors = ['#FFBC42', '#006BA6', '#0496FF', '#D81159', '#8F2D56']
+        const loader = <div className="loader border-top-info"></div>
+        if (Array.isArray(data)) {
+            this.sortData(data).forEach((item, index) => {
+                //console.log(item[0] , index)
+                const header = [[
+                    'Team',
+                    'Excellent',
+                    'Very Good',
+                    'Sufficient',
+                    'Really Bad',
+                    'Not Complete',
+                ]]
+                const barChartData = [...header, item];
+                const pieChartData = [
+                    ['Inspection', 'Score'],
+                    ['Excellent', item[1]],
+                    ['Very Good', item[2]],
+                    ['Sufficient', item[3]],
+                    ['Really Bad', item[4]],
+                    ['Not Complete', item[5]],
+                ]
+                //console.log(chartInfo)
+                toRet.push(
+                    <div key={item[0] + index} style={{ display: 'flex', margin: 1 }}>
+                        <Chart
+                            width={'49vw'}
+                            height={'100%'}
+                            chartType="BarChart"
+                            loader={loader}
+                            data={barChartData}
+                            options={{
+                                seriesType: 'bars',
+                                colors: colors,
+                                legend: { position: "none" }
+                            }}
+                            rootProps={{ 'bar-data-testid': index }}
+                        />
+                        <Chart
+                            width={'49vw'}
+                            height={'100%'}
+                            chartType="PieChart"
+                            loader={loader}
+                            data={pieChartData}
+                            options={{
+                                colors: colors,
+                            }}
+                            rootProps={{ 'pie-data-testid': index }}
+                        />
+                    </div>
+                )
+            })
+
+        }
+        return toRet
+
+    }
+
     render() {
         const { loading, chartData } = this.state
-        return (
 
-            <Chart
-                width={'80vw'}
-                height={'900vh'}
-                chartType="BarChart"
-                loader={<div>Loading Chart</div>}
-                data={chartData}
-                options={{
-                    title: 'Inspections',
-                    vAxis: { title: 'Qty' },
-                    hAxis: { title: 'Teams' },
-                    seriesType: 'bars',
-                }}
-                rootProps={{ 'data-testid': '1' }}
-            />
+
+        return (
+            <div>{
+                loading ? <div className="loader border-top-info"></div> : this.getCharts(chartData)
+            }</div>
+
+
         )
     }
 
