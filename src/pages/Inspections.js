@@ -1,11 +1,16 @@
 import React, { Component } from 'react';
 import Chart from 'react-google-charts';
+import MomentUtils from '@date-io/moment';
+import moment from 'moment'
 
 import Views from '../utils/Views'
 
 import Config from '../utils/Trackvia.config'
 import TrackviaAPI from '../trackvia-api'
-
+import {
+    DateTimePicker,
+    MuiPickersUtilsProvider,
+} from "material-ui-pickers"
 
 class Inspections extends Component {
 
@@ -14,12 +19,16 @@ class Inspections extends Component {
         super(props)
         // Don't call this.setState() here!
         this.state = {
-            chartData: [],
+            data: [],
             loading: true,
+            startDate: new Date(),
+            endDate: new Date(),
         }
 
 
-        this.responseHandler = this.responseHandler.bind(this);
+        this.responseHandler = this.responseHandler.bind(this)
+        this.handleDateChange = this.handleDateChange.bind(this)
+        this.setDates = this.setDates.bind(this)
     }
     componentDidMount() {
         this.loadDataFromApi()
@@ -37,19 +46,44 @@ class Inspections extends Component {
 
     responseHandler(results) {
         const data = results.data
-        let dataWraper = []
+        //let dataWraper = []
         if (Array.isArray(data)) {
-            dataWraper = this.createDataForChart(data)
+            //dataWraper = this.createDataForChart(data)
+            this.setDates(data)
+            this.setState({ loading: false, data: data }, () => {
+                //console.log(this.state)
+            })
         }
 
-        this.setState({ loading: false, chartData: dataWraper }, () => {
-            console.log(this.state)
-        })
+
 
 
     }
 
-    createDataForChart(data) {
+    setDates(data) {
+        let dates = []
+        data.forEach(item => {
+            dates.push(new Date(item['Completed Date/Time']))
+        })
+
+        const maxDate = new Date(Math.max.apply(null, dates))
+        const minDate = new Date(Math.min.apply(null, dates))
+
+        this.setState({ startDate: minDate, endDate: maxDate })
+
+    }
+
+    filterByDate(data) {
+        const { startDate, endDate } = this.state
+        return data.filter(item => {
+            // console.log(item['Completed Date/Time'])
+            return moment(item['Completed Date/Time']).isBetween(startDate, endDate);
+        })
+    }
+
+    createDataForChart(dataTofilter) {
+
+        const data = this.filterByDate(dataTofilter)
 
         let chartData = []
         if (Array.isArray(data)) {
@@ -203,13 +237,40 @@ class Inspections extends Component {
 
     }
 
-    render() {
-        const { loading, chartData } = this.state
+    handleDateChange(target, value) {
+        let updated = this.state
+        updated[target] = value
+        this.setState(updated)
+    }
 
+    getDateFilter() {
+        const { startDate, endDate } = this.state
+        return (
+            <MuiPickersUtilsProvider utils={MomentUtils}>
+                <div style={{
+                    display: 'flex',
+                    justifyContent: 'space-around',
+                }}>
+                    <DateTimePicker keyboard helperText="From" value={startDate} onChange={(date) => { this.handleDateChange('startDate', date) }} />
+                    <DateTimePicker keyboard helperText="to" value={endDate} onChange={(date) => { this.handleDateChange('endDate', date) }} />
+                </div>
+            </MuiPickersUtilsProvider>
+        )
+    }
+
+    render() {
+        const { loading, data } = this.state
+        const chartData = this.createDataForChart(data)
 
         return (
             <div>{
-                loading ? <div className="loader border-top-info"></div> : this.getCharts(chartData)
+                loading ?
+                    <div className="loader border-top-info"></div>
+                    :
+                    <div>
+                        {this.getDateFilter()}
+                        {this.getCharts(chartData)}
+                    </div>
             }</div>
 
 
