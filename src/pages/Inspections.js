@@ -25,7 +25,6 @@ class Inspections extends Component {
             endDate: new Date(),
         }
 
-
         this.responseHandler = this.responseHandler.bind(this)
         this.handleDateChange = this.handleDateChange.bind(this)
         this.setDates = this.setDates.bind(this)
@@ -35,7 +34,6 @@ class Inspections extends Component {
     }
 
     loadDataFromApi() {
-
 
         const api = new TrackviaAPI(Config.apiKey, Config.accessToken, Config.env);
         api.getView(Views.inspections, { start: 0, max: 15000 }).then(this.responseHandler)

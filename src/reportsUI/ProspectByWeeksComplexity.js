@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import TaskRadioGroup from '../comps/TaskRadioGroup'
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Switch from '@material-ui/core/Switch';
 
 import Config from '../utils/Trackvia.config'
 import TrackviaAPI from '../trackvia-api'
@@ -19,7 +21,8 @@ class ProspectByWeeksComplexity extends Component {
         Task Type  2019,
         */
         this.state = {
-            chartData: [['Week', 'Complexity 2018,', 'Task 2018', 'Complexity 2019', 'Task 2019']],
+            chartData: [],
+            switcher: true,
             tasks: {},
             type: 'setScaff',
             loading: true,
@@ -37,7 +40,7 @@ class ProspectByWeeksComplexity extends Component {
     loadDataFromApi() {
         const { viewId } = this.props
         const api = new TrackviaAPI(Config.apiKey, Config.accessToken, Config.env);
-        console.log('load view ID: ', viewId )
+        console.log('load view ID: ', viewId)
         api.getView(viewId, { start: 0, max: 15000 }).then(this.resultResponse)
 
     }
@@ -50,13 +53,17 @@ class ProspectByWeeksComplexity extends Component {
             dataWraper = this.createDataForChart(data)
         }
 
+        // const test = this.dataFormatter(dataWraper.setScaff)
+
+        // console.log(test)
+
         this.setState({
             loading: false,
-            chartData: dataWraper.setScaff,
+            chartData: this.dataFormatter(dataWraper.setScaff, this.state.switcher),
             tasks: dataWraper,
 
         }, () => {
-           // console.log(this.state)
+            // console.log(this.state)
         })
 
     }
@@ -280,22 +287,36 @@ class ProspectByWeeksComplexity extends Component {
 
 
     toggleData() {
-        const { showHomes, homes, jobs } = this.state
-        if (showHomes) {
-            this.setState({ chartData: homes, showHomes: false })
-        } else {
-            this.setState({ chartData: jobs, showHomes: true })
-        }
+        const { switcher, tasks, type } = this.state
+        this.setState({
+            chartData: this.dataFormatter(tasks[type], !switcher),
+            switcher: !switcher
+        })
     }
 
     handleChange(event) {
-        this.setState({ chartData: this.state.tasks[event.target.value], type: event.target.value });
+        this.setState({
+            chartData: this.dataFormatter(this.state.tasks[event.target.value], this.state.switcher),
+            type: event.target.value
+        });
+    }
+
+    dataFormatter(data, flag) {
+        let toRet = []
+        if (Array.isArray(data)) {
+            toRet = data.map(item => {
+
+                return flag ? [item[0], item[1], item[3]] : [item[0], item[2], item[4]]
+            })
+        }
+        return toRet
+
     }
 
 
     render() {
-        const { type } = this.state
-        const chartColors = ['#b7c0ca', '#b7c0ca', '#00aae6', '#00aae6',]
+        const { type, switcher } = this.state
+        const chartColors = ['#b7c0ca', '#00aae6',]
         const vAxis = { title: 'Qty', minValue: 0, }
         const hAxis = { title: 'Week' }
         /*
@@ -324,13 +345,24 @@ class ProspectByWeeksComplexity extends Component {
                     this.state.loading ?
                         <div className="loader border-top-info"></div>
                         : <div style={{ width: '100%' }}>
-                            <TaskRadioGroup
-                                onChange={this.handleChange}
-                                type={type}
-                                filter={'Main'} />
-
+                            <div style={{width: '100%', }}>
+                                <TaskRadioGroup
+                                    onChange={this.handleChange}
+                                    type={type}
+                                    filter={'Main'} />
+                                <FormControlLabel
+                                    control={
+                                        <Switch
+                                            checked={switcher}
+                                            onChange={this.toggleData}
+                                            color="primary"
+                                        />
+                                    }
+                                    label={'Complexity vs. Task'}
+                                />
+                            </div>
                             <div className="d-flex flex-column justify-content-center align-items-center"
-                                style={{ height: '100%', width: '100vw' }}>
+                                style={{ height: '100%', width: '98vw' }}>
 
                                 <Chart
                                     width={'100%'}
