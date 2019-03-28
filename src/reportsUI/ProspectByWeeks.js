@@ -32,6 +32,7 @@ class ProspectByWeeks extends Component {
             loading: true,
         }
         this.loadDataFromApi = this.loadDataFromApi.bind(this)
+        this.responseHandler = this.responseHandler.bind(this)
         this.toggleData = this.toggleData.bind(this)
     }
 
@@ -45,30 +46,26 @@ class ProspectByWeeks extends Component {
     loadDataFromApi() {
         const { viewId } = this.props
         const api = new TrackviaAPI(Config.apiKey, Config.accessToken, Config.env);
-        const _self = this
+        api.getView(viewId, { start: 0, max: 5000 }).then(this.responseHandler)
+    }
 
-        api.getView(viewId, { start: 0, max: 3000 })
-            .then(results => {
+    responseHandler(results) {
+        const data = results.data
+        let dataWraper = []
+        if (Array.isArray(data)) {
+            dataWraper = this.createDataForChart(data)
+        }
 
-                const data = results.data
-                let dataWraper = []
-                if (Array.isArray(data)) {
+        this.setState({
+            loading: false,
+            chartData: [...this.state.chartData, ...dataWraper.homes],
+            homes: [...this.state.chartData, ...dataWraper.homes],
+            jobs: [...this.state.chartData, ...dataWraper.jobs]
 
-                    dataWraper = _self.createDataForChart(data)
+        }, () => {
+            //console.log(this.state)
+        })
 
-                }
-
-                _self.setState({
-                    loading: false,
-                    chartData: [...this.state.chartData, ...dataWraper.homes],
-                    homes: [...this.state.chartData, ...dataWraper.homes],
-                    jobs: [...this.state.chartData, ...dataWraper.jobs]
-
-                }, () => {
-                    //console.log(this.state)
-                })
-
-            })
     }
 
     createDataForChart(data) {
@@ -118,7 +115,8 @@ class ProspectByWeeks extends Component {
         return data.filter(item => {
             return moment(item[field]).isBetween(date.start, date.end);
         }).reduce((total, item) => {
-            var v = Number(item['Complexity (# of Plexes)'])
+            let value = item['Complexity (# of Plexes)'] ? item['Complexity (# of Plexes)'] : 0
+            let v = Number(value)
             return total + v
         }, 0)
     }
@@ -131,20 +129,20 @@ class ProspectByWeeks extends Component {
             this.setState({ chartData: jobs, showHomes: true })
         }
     }
-/*
-    getDateRangesFromWeekNumber(weekNumber, year) {
-
-        var beginningOfWeek = moment().set('year', year).week(weekNumber).startOf('week');
-        var endOfWeek = moment().set('year', year).week(weekNumber).startOf('week').add(6, 'days')
-
-        return { start: beginningOfWeek, end: endOfWeek }
-    }
-*/
-/*
-    getTotalWeeksFromYear(year) {
-        return moment().set('year', year).isoWeeksInYear()
-    }
-*/
+    /*
+        getDateRangesFromWeekNumber(weekNumber, year) {
+    
+            var beginningOfWeek = moment().set('year', year).week(weekNumber).startOf('week');
+            var endOfWeek = moment().set('year', year).week(weekNumber).startOf('week').add(6, 'days')
+    
+            return { start: beginningOfWeek, end: endOfWeek }
+        }
+    */
+    /*
+        getTotalWeeksFromYear(year) {
+            return moment().set('year', year).isoWeeksInYear()
+        }
+    */
     render() {
         const { showHomes } = this.state
         const chartColors = ['#b7c0ca', '#00aae6', '#74797d',]

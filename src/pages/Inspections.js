@@ -55,9 +55,6 @@ class Inspections extends Component {
             })
         }
 
-
-
-
     }
 
     setDates(data) {
