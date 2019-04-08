@@ -59,7 +59,7 @@ class App extends Component {
                 <Route path="/timeline/:id" component={ProtectedRoute(withTracker(Timeline))} />
                 <Route path="/prospect/:id" component={ProtectedRoute(withTracker(Prospects))} />
                 <Route path="/tasks/:id" component={ProtectedRoute(withTracker(AllTask))} />
-                <Route path="/inspections" component={ProtectedRoute(withTracker(Inspections))} />
+                <Route path="/inspections/:team" component={ProtectedRoute(withTracker(Inspections))} />
                 <Route path="/" component={withTracker(Login)} />
               </Switch>
             </div>

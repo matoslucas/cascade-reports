@@ -40,11 +40,12 @@ class NavbarComp extends React.Component {
 
         const linkStyle = {
             color: '#fff',
-            margin: '5px',
-            padding: '5px',
+            margin: '0px',
         }
         const tabStyle = {
-            margin: '5px 0px'
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center'
         }
         return (
 
@@ -96,8 +97,16 @@ class NavbarComp extends React.Component {
                             </Dropdown>
                         </NavItem>
 
-                        <NavItem style={tabStyle}>
-                            <NavLink style={linkStyle} to="/inspections">Inspections</NavLink>
+                        <NavItem>
+                            <Dropdown>
+                                <DropdownToggle nav caret>
+                                    <div className="d-md-inline">Inspections</div>
+                                </DropdownToggle>
+                                <DropdownMenu right>
+                                    <DropdownItem href="/inspections/team">By Team</DropdownItem>
+                                    <DropdownItem href="/inspections/super">By Super </DropdownItem>
+                                </DropdownMenu>
+                            </Dropdown>
                         </NavItem>
 
                     </NavbarNav>

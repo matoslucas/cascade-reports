@@ -21,10 +21,11 @@ class Inspections extends Component {
         this.state = {
             data: [],
             loading: true,
+            team: 'team',
             startDate: new Date(),
             endDate: new Date(),
         }
-
+       
         this.responseHandler = this.responseHandler.bind(this)
         this.handleDateChange = this.handleDateChange.bind(this)
         this.setDates = this.setDates.bind(this)
@@ -44,11 +45,15 @@ class Inspections extends Component {
 
     responseHandler(results) {
         const data = results.data
+        const { match} = this.props
+
+        const team = match.params.team ? match.params.team : 'team'
+        console.log(team)
         //let dataWraper = []
         if (Array.isArray(data)) {
             //dataWraper = this.createDataForChart(data)
             this.setDates(data)
-            this.setState({ loading: false, data: data }, () => {
+            this.setState({ loading: false, team: team, data: data }, () => {
                 //console.log(this.state)
             })
         }
@@ -76,7 +81,7 @@ class Inspections extends Component {
         })
     }
 
-    createDataForChart(dataTofilter) {
+    createDataForChartTeam(dataTofilter) {
 
         const data = this.filterByDate(dataTofilter)
 
@@ -103,6 +108,33 @@ class Inspections extends Component {
         return chartData
     }
 
+    createDataForChartSuper(dataTofilter) {
+
+        const data = this.filterByDate(dataTofilter)
+
+        let chartData = []
+        if (Array.isArray(data)) {
+
+            const teams = this.getSupers(data)
+
+            teams.forEach(team => {
+                let teamData = this.filterBySuper(team, data)
+                const inspectionResults = this.getInspectionResult(teamData)
+                chartData.push([
+                    team,
+                    inspectionResults.excellent,
+                    inspectionResults.veryGood,
+                    inspectionResults.sufficient,
+                    inspectionResults.reallyBad,
+                    inspectionResults.notComplete,
+                ])
+            })
+
+        }
+
+        return chartData
+    }
+
     getTeams(data) {
         let teams = []
         data.forEach(item => {
@@ -113,8 +145,22 @@ class Inspections extends Component {
         return teams
     }
 
+    getSupers(data) {
+        let teams = []
+        data.forEach(item => {
+            if (!teams.includes(item['Cascade Superintendent'])) {
+                teams.push(item['Cascade Superintendent'])
+            }
+        })
+        return teams
+    }
+
     filterByTeam(team, data) {
         return data.filter(item => item['Task Team'] === team)
+    }
+
+    filterBySuper(team, data) {
+        return data.filter(item => item['Cascade Superintendent'] === team)
     }
 
     getInspectionResult(data) {
@@ -165,14 +211,76 @@ class Inspections extends Component {
 
     sortData(data) {
         return data.sort((a, b) => {
-            var a1 = a[1];
-            var b1 = b[1];
+            var a1 = a[2];
+            var b1 = b[2];
             if (a1 === b1) return 0;
             return a1 > b1 ? -1 : 1;
         });
     }
 
     getCharts(data) {
+        let toRet = []
+        const colors = ['#FFBC42', '#006BA6', '#0496FF', '#D81159', '#8F2D56']
+        const loader = <div className="loader border-top-info"></div>
+        if (Array.isArray(data)) {
+            this.sortData(data).forEach((item, index) => {
+                //console.log(item[0] , index)
+                const header = [[
+                    'Team',
+                    'Excellent',
+                    'Very Good',
+                    'Sufficient',
+                    'Really Bad',
+                    'Not Complete',
+                ]]
+                const barChartData = [...header, item];
+                const pieChartData = [
+                    ['Inspection', 'Score'],
+                    ['Excellent', item[1]],
+                    ['Very Good', item[2]],
+                    ['Sufficient', item[3]],
+                    ['Really Bad', item[4]],
+                    ['Not Complete', item[5]],
+                ]
+                //console.log(chartInfo)
+                toRet.push(
+                    <div key={item[0] + index} style={{ display: 'flex', margin: 1 }}>
+                        <Chart
+                            width={'49vw'}
+                            height={'100%'}
+                            chartType="BarChart"
+                            loader={loader}
+                            data={barChartData}
+                            options={{
+                                seriesType: 'bars',
+                                colors: colors,
+                                legend: { position: "none" }
+                            }}
+                            rootProps={{ 'bar-data-testid': index }}
+                        />
+                        <Chart
+                            width={'49vw'}
+                            height={'100%'}
+                            chartType="PieChart"
+                            loader={loader}
+                            data={pieChartData}
+                            options={{
+                                colors: colors,
+                            }}
+                            rootProps={{ 'pie-data-testid': index }}
+                        />
+                    </div>
+                )
+            })
+
+        }
+        return toRet
+
+    }
+
+    getSuperCharts(data){
+       // console.log(chartData)
+       
         let toRet = []
         const colors = ['#FFBC42', '#006BA6', '#0496FF', '#D81159', '#8F2D56']
         const loader = <div className="loader border-top-info"></div>
@@ -254,8 +362,14 @@ class Inspections extends Component {
     }
 
     render() {
-        const { loading, data } = this.state
-        const chartData = this.createDataForChart(data)
+        const { loading, team, data } = this.state
+        let chartData = []
+
+        if(team === 'team'){
+            chartData = this.createDataForChartTeam(data)
+        }else{
+            chartData = this.createDataForChartSuper(data)
+        }
 
         return (
             <div>{
@@ -264,7 +378,7 @@ class Inspections extends Component {
                     :
                     <div>
                         {this.getDateFilter()}
-                        {this.getCharts(chartData)}
+                        {team === 'team'? this.getCharts(chartData): this.getSuperCharts(chartData)}
                     </div>
             }</div>
 
