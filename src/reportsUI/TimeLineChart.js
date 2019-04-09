@@ -161,7 +161,7 @@ class TimeLineChart extends Component {
       
           <Chart
             width={'calc(100vw - 22px)'}
-            height={'100vh'}
+            height={'76vh'}
             chartType="Timeline"
             loader={<div className="loader border-top-info"></div>}
             data={this.state.chartData}

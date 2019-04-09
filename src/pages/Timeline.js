@@ -31,7 +31,7 @@ class Timeline extends Component {
         const id = match.params.id ? match.params.id : 'All'
 
         return (
-            <div className="d-flex justify-content-center align-items-center" style={{height:'100vh'}}>
+            <div className="d-flex justify-content-center align-items-center">
                 <TimeLineChart viewId={Views[id]} selectClickHandler={this.goToTasksDetailPage}/>
             </div>
         )
