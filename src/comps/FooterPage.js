@@ -1,12 +1,12 @@
 import React from "react";
 import {
-  Col,
+  // Col,
   Container,
-  Row,
-  Media,
+  // Row,
+  // Media,
   Footer,
-  CardBody,
-  Fa,
+  // CardBody,
+  // Fa,
 } from "mdbreact";
 
 class FooterPage extends React.Component {

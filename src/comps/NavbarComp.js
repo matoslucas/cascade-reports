@@ -92,6 +92,7 @@ class NavbarComp extends React.Component {
                                 <DropdownMenu right>
                                     <DropdownItem href="/timelines">All Jobs</DropdownItem>
                                     <DropdownItem href="/timeline/Ivory">Ivory Jobs </DropdownItem>
+                                    <DropdownItem href="/tasks/active">All Jobs Tasks (Active)</DropdownItem>
                                     <DropdownItem href="/tasks/all">All Jobs Tasks </DropdownItem>
                                 </DropdownMenu>
                             </Dropdown>

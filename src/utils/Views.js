@@ -12,5 +12,7 @@ const View = {
     secondaryTask: 949, // Custom Reporting | Jobs Tasks Secondary , using filter from 2018 year
     complexity: 953, // Custom Reporting | Jobs Tasks ( Scaffolding )
     inspections: 964, // Custom Report | Inspections
+    allTasksAtcive: 950, // Custom Report | Jobs Tasks Active
+    allTask: 968, // Custom Reporting | Jobs Tasks All
 }
 export default View

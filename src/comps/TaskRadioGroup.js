@@ -42,12 +42,14 @@ class TaskRadioGroup extends React.Component {
         return main.filter(item => {
             return (item.type === filter)
         }).map(item => {
-            //let toReturn = []
+            let toReturn = []
             for (var key in item) {
-                // console.log(key, item[key])
-                return (<FormControlLabel key={key} value={key} control={<Radio />} label={item[key]} />)
+                if (key !== 'type') {
+                    toReturn.push(<FormControlLabel key={key} value={key} control={<Radio />} label={item[key]} />)
+                }
+
             }
-            //return toReturn
+            return toReturn
         })
 
     }

@@ -8,7 +8,7 @@ class AllTask extends Component {
     render() {
         const { match} = this.props
 
-        const id = match.params.id ? match.params.id : 'All'
+        const id = match.params.id ? match.params.id : 'all'
         return (
             <div>
                <AllTaskChart viewId={View['AllTask']} id={id}/>

@@ -47,8 +47,17 @@ const ProtectedRoute = (WrappedComponent) => {
     render() {
       const { isAuthenticated, isLoading } = this.state
 
+      const loader = (<div style={{
+        height: '79.8vh',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center'
+      }}>
+        <div className="loader border-top-info"></div>
+      </div>)
+
       if (isLoading) {
-        return <div className="loader border-top-info"></div>
+        return loader
       } else {
         if (isAuthenticated) {
           return <WrappedComponent {...this.props} />

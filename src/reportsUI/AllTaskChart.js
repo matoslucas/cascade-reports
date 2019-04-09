@@ -38,16 +38,18 @@ class AllTaskChart extends Component {
 
         let { viewId, id } = this.props
 
-
-
         const api = new TrackviaAPI(Config.apiKey, Config.accessToken, Config.env);
-        const query = id //'134-Waters Edge-Woodside'
+        let query = id //'134-Waters Edge-Woodside'
         if (id === 'all') {
+            viewId = 968
+            query = ''
+            
+        } else if(id ==='active') {
             viewId = 950
-            api.getView(950, { start: 0, max: 15000 }).then(this.responseHandler)
-        } else {
-            api.getView(viewId, { start: 0, max: 15000 }, query).then(this.responseHandler)
+            query = ''
         }
+
+        api.getView(viewId, { start: 0, max: 15000 }, query).then(this.responseHandler)
 
         console.log('loadDataFromApi', viewId, id)
 
@@ -64,10 +66,10 @@ class AllTaskChart extends Component {
             data.forEach(item => {
                 // console.log(, item['Task Status'], item['Team and Task']) //['Task Type'])
                 // console.log( item)
-                const jobName = item['Job']
+                const jobName = item['Job']+' | '+ String(item['Cascade Superintendent']).replace(/[^a-zA-Z ]/g,'')
                 const start = item['Start Date/Time'] ? new Date(item['Start Date/Time']) : null
                 let end
-                let taskTitle = item['Task Type']
+                let taskTitle = item['Task Type']+' | '+item['Team Name']
                 if (item['Completed Date/Time']) {
                     end = new Date(item['Completed Date/Time'])
                 } else {
