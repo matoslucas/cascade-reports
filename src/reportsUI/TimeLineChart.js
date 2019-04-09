@@ -20,7 +20,7 @@ class TimeLineChart extends Component {
       ],
       loading: true,
     }
-    
+
   }
 
   componentDidMount() {
@@ -148,80 +148,89 @@ class TimeLineChart extends Component {
   goToTasksDetailPage(id) {
     // console.log(id, this.props)
     const { selectClickHandler } = this.props
-    
-    selectClickHandler(String(id).replace('*',''));
+
+    selectClickHandler(String(id).replace('*', ''));
   }
 
   render() {
 
+    const loader = (<div style={{
+      height: '79.8vh',
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center'
+    }}>
+      <div className="loader border-top-info"></div>
+    </div>)
+
     if (this.state.loading) {
-      return <div className="loader border-top-info"></div>
+      return loader
     } else {
       return (
-      
-          <Chart
-            width={'calc(100vw - 22px)'}
-            height={'76vh'}
-            chartType="Timeline"
-            loader={<div className="loader border-top-info"></div>}
-            data={this.state.chartData}
-            
-            options={{
-              showRowNumber: true,
-            }}
-            rootProps={{ 'data-testid': '1' }}
 
-            chartPackages={['corechart', 'controls']}
-            controls={[
-              {
-                controlType: 'StringFilter',
-                options: {
-                  filterColumnIndex: 0,
-                  matchType: 'any', // 'prefix' | 'exact',
-                  ui: {
-                    label: 'Filter by name',
-                  },
+        <Chart
+          width={'calc(100vw - 22px)'}
+          height={'79.8vh'}
+          chartType="Timeline"
+          loader={loader}
+          data={this.state.chartData}
+
+          options={{
+            showRowNumber: true,
+          }}
+          rootProps={{ 'data-testid': '1' }}
+
+          chartPackages={['corechart', 'controls']}
+          controls={[
+            {
+              controlType: 'StringFilter',
+              options: {
+                filterColumnIndex: 0,
+                matchType: 'any', // 'prefix' | 'exact',
+                ui: {
+                  label: 'Filter by name',
                 },
               },
+            },
 
-              {
-                controlType: 'DateRangeFilter',
-                options: {
-                  // Filter by the date axis.
-                  filterColumnIndex: 2,
-                  
-                },
-                // Initial range: 2012-02-09 to 2012-03-20.
-                //'state': {'range': {'start': new Date(1380740460000), 'end': new Date(1380740480000)}}
+            {
+              controlType: 'DateRangeFilter',
+              options: {
+                // Filter by the date axis.
+                filterColumnIndex: 2,
+
               },
-              
-            ]}
+              // Initial range: 2012-02-09 to 2012-03-20.
+              //'state': {'range': {'start': new Date(1380740460000), 'end': new Date(1380740480000)}}
+            },
+
+          ]}
 
 
-            chartEvents={[
-              {
-                eventName: 'select',
-                callback: ({ chartWrapper }) => {
-                  const chart = chartWrapper.getChart()
-                  const selection = chart.getSelection()
-                 
-                  if (selection.length === 1) {
-                    const [selectedItem] = selection
-                    const dataTable = chartWrapper.getDataTable()
-                    //console.log(dataTable.getValue(0, 0))
-                    const { row } = selectedItem
-                    // console.log(row, column, dataTable.getValue(row, 0))
-                    const value = dataTable.getValue(row, 0)
-                    this.goToTasksDetailPage(value)
-                    
-                  }
-                 
-                },
+          chartEvents={[
+            {
+              eventName: 'select',
+              callback: ({ chartWrapper }) => {
+                const chart = chartWrapper.getChart()
+                const selection = chart.getSelection()
+
+                if (selection.length === 1) {
+                  const [selectedItem] = selection
+                  const dataTable = chartWrapper.getDataTable()
+                  //console.log(dataTable.getValue(0, 0))
+                  const { row } = selectedItem
+                  // console.log(row, column, dataTable.getValue(row, 0))
+                  const value = dataTable.getValue(row, 0)
+                  this.goToTasksDetailPage(value)
+
+                }
+
               },
-            ]}
+            },
+          ]}
 
-          />
-       
+        />
+
       )
     }
   }

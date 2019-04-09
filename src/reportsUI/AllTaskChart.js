@@ -38,12 +38,12 @@ class AllTaskChart extends Component {
 
         let { viewId, id } = this.props
 
-    
+
 
         const api = new TrackviaAPI(Config.apiKey, Config.accessToken, Config.env);
         const query = id //'134-Waters Edge-Woodside'
         if (id === 'all') {
-            viewId= 950
+            viewId = 950
             api.getView(950, { start: 0, max: 15000 }).then(this.responseHandler)
         } else {
             api.getView(viewId, { start: 0, max: 15000 }, query).then(this.responseHandler)
@@ -104,16 +104,23 @@ class AllTaskChart extends Component {
 
     render() {
         const { loading, chartData } = this.state
-
+        const loader = (<div style={{ 
+            height: '79.8vh', 
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center' }}>
+            <div className="loader border-top-info"></div>
+        </div>)
+        
         if (loading) {
-            return <div className="loader border-top-info"></div>
+            return (loader)
         }
         else {
             return (<Chart
                 width={'calc(100vw - 22px)'}
-                height={'100vh'}
+                height={'80.78vh'}
                 chartType="Timeline"
-                loader={<div className="loader border-top-info"></div>}
+                loader={loader}
                 data={chartData}
                 options={{
                     showRowNumber: true,

@@ -50,7 +50,7 @@ class App extends Component {
             <div
               className="d-flex justify-content-center align-items-center"
               style={{
-                marginBottom: 80,
+                marginBottom: 40,
                 marginTop: 40
               }} >
               <Switch>
