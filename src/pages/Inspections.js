@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Chart from 'react-google-charts';
 import MomentUtils from '@date-io/moment';
 import moment from 'moment'
 
@@ -11,6 +10,8 @@ import {
     DateTimePicker,
     MuiPickersUtilsProvider,
 } from "material-ui-pickers"
+
+import InspectionChart from '../reportsUI/InspectionChart'
 
 class Inspections extends Component {
 
@@ -25,7 +26,7 @@ class Inspections extends Component {
             startDate: new Date(),
             endDate: new Date(),
         }
-       
+
         this.responseHandler = this.responseHandler.bind(this)
         this.handleDateChange = this.handleDateChange.bind(this)
         this.setDates = this.setDates.bind(this)
@@ -45,7 +46,7 @@ class Inspections extends Component {
 
     responseHandler(results) {
         const data = results.data
-        const { match} = this.props
+        const { match } = this.props
 
         const team = match.params.team ? match.params.team : 'team'
         console.log(team)
@@ -85,7 +86,11 @@ class Inspections extends Component {
 
         const data = this.filterByDate(dataTofilter)
 
-        let chartData = []
+        let dataforChart = {
+            chartData: [],
+            summary:[],
+        }
+
         if (Array.isArray(data)) {
 
             const teams = this.getTeams(data)
@@ -93,7 +98,7 @@ class Inspections extends Component {
             teams.forEach(team => {
                 let teamData = this.filterByTeam(team, data)
                 const inspectionResults = this.getInspectionResult(teamData)
-                chartData.push([
+                dataforChart.chartData.push([
                     team,
                     inspectionResults.excellent,
                     inspectionResults.veryGood,
@@ -105,14 +110,18 @@ class Inspections extends Component {
 
         }
 
-        return chartData
+        return dataforChart
     }
 
     createDataForChartSuper(dataTofilter) {
 
         const data = this.filterByDate(dataTofilter)
 
-        let chartData = []
+        let dataforChart = {
+            chartData: [],
+            summary:[],
+        }
+        
         if (Array.isArray(data)) {
 
             const teams = this.getSupers(data)
@@ -120,7 +129,7 @@ class Inspections extends Component {
             teams.forEach(team => {
                 let teamData = this.filterBySuper(team, data)
                 const inspectionResults = this.getInspectionResult(teamData)
-                chartData.push([
+                dataforChart.chartData.push([
                     team,
                     inspectionResults.excellent,
                     inspectionResults.veryGood,
@@ -132,7 +141,7 @@ class Inspections extends Component {
 
         }
 
-        return chartData
+        return dataforChart
     }
 
     getTeams(data) {
@@ -243,34 +252,13 @@ class Inspections extends Component {
                     ['Not Complete', item[5]],
                 ]
                 //console.log(chartInfo)
-                toRet.push(
-                    <div key={item[0] + index} style={{ display: 'flex', margin: 1 }}>
-                        <Chart
-                            width={'49vw'}
-                            height={'100%'}
-                            chartType="BarChart"
-                            loader={loader}
-                            data={barChartData}
-                            options={{
-                                seriesType: 'bars',
-                                colors: colors,
-                                legend: { position: "none" }
-                            }}
-                            rootProps={{ 'bar-data-testid': index }}
-                        />
-                        <Chart
-                            width={'49vw'}
-                            height={'100%'}
-                            chartType="PieChart"
-                            loader={loader}
-                            data={pieChartData}
-                            options={{
-                                colors: colors,
-                            }}
-                            rootProps={{ 'pie-data-testid': index }}
-                        />
-                    </div>
-                )
+                
+                toRet.push(<InspectionChart
+                    loader={loader}
+                    colors={colors}
+                    barChartData={barChartData}
+                    pieChartData={pieChartData}
+                    key={item[0] + index} index={index} />)
             })
 
         }
@@ -278,9 +266,9 @@ class Inspections extends Component {
 
     }
 
-    getSuperCharts(data){
-       // console.log(chartData)
-       
+    getSuperCharts(data) {
+        // console.log(chartData)
+
         let toRet = []
         const colors = ['#FFBC42', '#006BA6', '#0496FF', '#D81159', '#8F2D56']
         const loader = <div className="loader border-top-info"></div>
@@ -305,34 +293,12 @@ class Inspections extends Component {
                     ['Not Complete', item[5]],
                 ]
                 //console.log(chartInfo)
-                toRet.push(
-                    <div key={item[0] + index} style={{ display: 'flex', margin: 1 }}>
-                        <Chart
-                            width={'49vw'}
-                            height={'100%'}
-                            chartType="BarChart"
-                            loader={loader}
-                            data={barChartData}
-                            options={{
-                                seriesType: 'bars',
-                                colors: colors,
-                                legend: { position: "none" }
-                            }}
-                            rootProps={{ 'bar-data-testid': index }}
-                        />
-                        <Chart
-                            width={'49vw'}
-                            height={'100%'}
-                            chartType="PieChart"
-                            loader={loader}
-                            data={pieChartData}
-                            options={{
-                                colors: colors,
-                            }}
-                            rootProps={{ 'pie-data-testid': index }}
-                        />
-                    </div>
-                )
+                toRet.push(<InspectionChart
+                    loader={loader}
+                    colors={colors}
+                    barChartData={barChartData}
+                    pieChartData={pieChartData}
+                    key={item[0] + index} />)
             })
 
         }
@@ -363,12 +329,15 @@ class Inspections extends Component {
 
     render() {
         const { loading, team, data } = this.state
-        let chartData = []
+        let dataforChart = {
+            chartData: [],
+            summary:[],
+        }
 
-        if(team === 'team'){
-            chartData = this.createDataForChartTeam(data)
-        }else{
-            chartData = this.createDataForChartSuper(data)
+        if (team === 'team') {
+            dataforChart = this.createDataForChartTeam(data)
+        } else {
+            dataforChart = this.createDataForChartSuper(data)
         }
 
         return (
@@ -378,7 +347,7 @@ class Inspections extends Component {
                     :
                     <div>
                         {this.getDateFilter()}
-                        {team === 'team'? this.getCharts(chartData): this.getSuperCharts(chartData)}
+                        {team === 'team' ? this.getCharts(dataforChart.chartData) : this.getSuperCharts(dataforChart.chartData)}
                     </div>
             }</div>
 
