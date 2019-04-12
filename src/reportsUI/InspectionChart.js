@@ -25,7 +25,8 @@ class InspectionChart extends Component {
     }
 
     render() {
-        const { loader, colors, barChartData, pieChartData, index } = this.props
+        const { loader, colors, barChartData, pieChartData, tableChartData, index } = this.props
+
         return (
 
             <div style={{ display: 'flex', flexDirection: 'column' }}>
@@ -71,26 +72,17 @@ class InspectionChart extends Component {
                 </CardActions>
                 <Collapse in={this.state.open} timeout="auto" unmountOnExit>
                     <Chart
-                        width={'500px'}
-                        height={'300px'}
+                        width={'100%'}
+                        height={'55vh'}
                         chartType="Table"
                         loader={loader}
-                        data={[
-                            [
-                                { type: 'string', label: 'Name' },
-                                { type: 'number', label: 'Salary' },
-                                { type: 'boolean', label: 'Full Time Employee' },
-                            ],
-                            ['Mike', { v: 10000, f: '$10,000' }, true],
-                            ['Jim', { v: 8000, f: '$8,000' }, false],
-                            ['Alice', { v: 12500, f: '$12,500' }, true],
-                            ['Bob', { v: 7000, f: '$7,000' }, true],
-                        ]}
+                        data={tableChartData}
                         options={{
                             showRowNumber: true,
                         }}
                         rootProps={{ 'table-data-testid': index}}
                     />
+                    <br />
                 </Collapse>
 
             </div>

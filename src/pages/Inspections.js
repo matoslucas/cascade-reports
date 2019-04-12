@@ -40,7 +40,7 @@ class Inspections extends Component {
         const api = new TrackviaAPI(Config.apiKey, Config.accessToken, Config.env);
         api.getView(Views.inspections, { start: 0, max: 15000 }).then(this.responseHandler)
 
-        console.log('loadDataFromApi', Views.inspections)
+        console.log('load data from view id: ', Views.inspections)
 
     }
 
@@ -49,7 +49,7 @@ class Inspections extends Component {
         const { match } = this.props
 
         const team = match.params.team ? match.params.team : 'team'
-        console.log(team)
+        // console.log(team)
         //let dataWraper = []
         if (Array.isArray(data)) {
             //dataWraper = this.createDataForChart(data)
@@ -88,7 +88,7 @@ class Inspections extends Component {
 
         let dataforChart = {
             chartData: [],
-            summary:[],
+            summary: [],
         }
 
         if (Array.isArray(data)) {
@@ -105,7 +105,9 @@ class Inspections extends Component {
                     inspectionResults.sufficient,
                     inspectionResults.reallyBad,
                     inspectionResults.notComplete,
+                    inspectionResults.summary,
                 ])
+                //dataforChart.summary.push(inspectionResults.summary)
             })
 
         }
@@ -119,9 +121,9 @@ class Inspections extends Component {
 
         let dataforChart = {
             chartData: [],
-            summary:[],
+            summary: [],
         }
-        
+
         if (Array.isArray(data)) {
 
             const teams = this.getSupers(data)
@@ -136,7 +138,10 @@ class Inspections extends Component {
                     inspectionResults.sufficient,
                     inspectionResults.reallyBad,
                     inspectionResults.notComplete,
+                    inspectionResults.summary,
                 ])
+
+                //dataforChart.summary.push(inspectionResults.summary)
             })
 
         }
@@ -193,6 +198,7 @@ class Inspections extends Component {
             deficient: 0,
             reallyBad: 0,
             notComplete: 0,
+            summary: []
         }
 
         if (Array.isArray(data)) {
@@ -211,6 +217,7 @@ class Inspections extends Component {
                     default: inspectionResults.notComplete += 1;
 
                 }
+                inspectionResults.summary.push(item)
                 //console.log(item['Cascade Super Inspection Grade'])
             })
 
@@ -228,11 +235,12 @@ class Inspections extends Component {
     }
 
     getCharts(data) {
+        //console.log(data)
         let toRet = []
         const colors = ['#FFBC42', '#006BA6', '#0496FF', '#D81159', '#8F2D56']
         const loader = <div className="loader border-top-info"></div>
-        if (Array.isArray(data)) {
-            this.sortData(data).forEach((item, index) => {
+        if (Array.isArray(data.chartData)) {
+            this.sortData(data.chartData).forEach((item, index) => {
                 //console.log(item[0] , index)
                 const header = [[
                     'Team',
@@ -242,7 +250,16 @@ class Inspections extends Component {
                     'Really Bad',
                     'Not Complete',
                 ]]
-                const barChartData = [...header, item];
+                const barChartData = [...header,
+                    [
+                        item[0],
+                        item[1],
+                        item[2],
+                        item[3],
+                        item[4],
+                        item[5],
+                    ]
+                ]
                 const pieChartData = [
                     ['Inspection', 'Score'],
                     ['Excellent', item[1]],
@@ -251,13 +268,18 @@ class Inspections extends Component {
                     ['Really Bad', item[4]],
                     ['Not Complete', item[5]],
                 ]
-                //console.log(chartInfo)
-                
+
+
+                const tableChartData = this.getTableData(item[6])
+
+
+
                 toRet.push(<InspectionChart
                     loader={loader}
                     colors={colors}
                     barChartData={barChartData}
                     pieChartData={pieChartData}
+                    tableChartData={tableChartData}
                     key={item[0] + index} index={index} />)
             })
 
@@ -272,8 +294,8 @@ class Inspections extends Component {
         let toRet = []
         const colors = ['#FFBC42', '#006BA6', '#0496FF', '#D81159', '#8F2D56']
         const loader = <div className="loader border-top-info"></div>
-        if (Array.isArray(data)) {
-            this.sortData(data).forEach((item, index) => {
+        if (Array.isArray(data.chartData)) {
+            this.sortData(data.chartData).forEach((item, index) => {
                 //console.log(item[0] , index)
                 const header = [[
                     'Team',
@@ -283,7 +305,16 @@ class Inspections extends Component {
                     'Really Bad',
                     'Not Complete',
                 ]]
-                const barChartData = [...header, item];
+                const barChartData = [...header,
+                    [
+                        item[0],
+                        item[1],
+                        item[2],
+                        item[3],
+                        item[4],
+                        item[5],
+                    ]
+                ]
                 const pieChartData = [
                     ['Inspection', 'Score'],
                     ['Excellent', item[1]],
@@ -292,18 +323,50 @@ class Inspections extends Component {
                     ['Really Bad', item[4]],
                     ['Not Complete', item[5]],
                 ]
-                //console.log(chartInfo)
+
+                const tableChartData = this.getTableData(item[6])
+
+                // console.log(tableChartData)
+
                 toRet.push(<InspectionChart
                     loader={loader}
                     colors={colors}
                     barChartData={barChartData}
                     pieChartData={pieChartData}
+                    tableChartData={tableChartData}
                     key={item[0] + index} />)
             })
 
         }
         return toRet
 
+    }
+
+    getTableData(data) {
+
+        const header = [
+            'Record ID',
+            'Task Status',
+            'Cascade Superintendent',
+            'Task Team',
+            'Builder Plan Name',
+            'Super Inspection Log',           
+        ]
+
+        let rowData = [
+            header
+        ]
+
+        data.forEach((row) => {
+            // console.log(row)
+            let linha = []
+            header.forEach(item => {
+                linha.push(row[item])
+            })
+            rowData.push(linha)
+        })
+
+        return rowData
     }
 
     handleDateChange(target, value) {
@@ -331,7 +394,7 @@ class Inspections extends Component {
         const { loading, team, data } = this.state
         let dataforChart = {
             chartData: [],
-            summary:[],
+            summary: [],
         }
 
         if (team === 'team') {
@@ -347,10 +410,9 @@ class Inspections extends Component {
                     :
                     <div>
                         {this.getDateFilter()}
-                        {team === 'team' ? this.getCharts(dataforChart.chartData) : this.getSuperCharts(dataforChart.chartData)}
+                        {team === 'team' ? this.getCharts(dataforChart) : this.getSuperCharts(dataforChart)}
                     </div>
             }</div>
-
 
         )
     }
