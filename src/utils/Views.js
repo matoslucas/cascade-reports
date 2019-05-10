@@ -14,5 +14,6 @@ const View = {
     inspections: 964, // Custom Report | Inspections
     allTasksAtcive: 950, // Custom Report | Jobs Tasks Active
     allTask: 968, // Custom Reporting | Jobs Tasks All
+    season: 988, // Custom reporting | Season Analysis
 }
 export default View

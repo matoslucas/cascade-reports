@@ -72,7 +72,7 @@ class NavbarComp extends React.Component {
                                     <div className="d-md-inline">Prospect</div>
                                 </DropdownToggle>
                                 <DropdownMenu right>
-
+                                    <DropdownItem href="/prospect/season">By Season</DropdownItem>
                                     <DropdownItem href="/prospect/complexity">By Task vs. Complexity</DropdownItem>
                                     <DropdownItem href="/prospect/mainTask">By Main Task Type</DropdownItem>
                                     <DropdownItem href="/prospect/secondaryTask">By Secondary Task Type</DropdownItem>

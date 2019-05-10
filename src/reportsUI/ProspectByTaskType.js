@@ -43,7 +43,6 @@ class ProspectByTaskType extends Component {
     }
 
 
-
     componentDidMount() {
 
         this.loadDataFromApi()
@@ -109,7 +108,6 @@ class ProspectByTaskType extends Component {
     createDataForChart(data) {
         // try to print 53 weeks
         // console.log(data)
-
 
         let setScaff = [['Week', '2018', '2019']]
         let paperWire = [['Week', '2018', '2019']]

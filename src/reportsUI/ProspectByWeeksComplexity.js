@@ -72,32 +72,32 @@ class ProspectByWeeksComplexity extends Component {
         // try to print 53 weeks
         //console.log(data)
 
-        let setScaff = [['Week', 'Complexity 2018,', 'Task 2018', 'Complexity 2019', 'Task 2019']]
-        let paperWire = [['Week', 'Complexity 2018,', 'Task 2018', 'Complexity 2019', 'Task 2019']]
-        let housewrap = [['Week', 'Complexity 2018,', 'Task 2018', 'Complexity 2019', 'Task 2019']]
-        let lathInspection = [['Week', 'Complexity 2018,', 'Task 2018', 'Complexity 2019', 'Task 2019']]
-        let weatherBarrierInspection = [['Week', 'Complexity 2018,', 'Task 2018', 'Complexity 2019', 'Task 2019']]
-        let tentHeat = [['Week', 'Complexity 2018,', 'Task 2018', 'Complexity 2019', 'Task 2019']]
-        let stuccoBrown = [['Week', 'Complexity 2018,', 'Task 2018', 'Complexity 2019', 'Task 2019']]
-        let watering = [['Week', 'Complexity 2018,', 'Task 2018', 'Complexity 2019', 'Task 2019']]
-        let jChannel = [['Week', 'Complexity 2018,', 'Task 2018', 'Complexity 2019', 'Task 2019']]
-        let siding = [['Week', 'Complexity 2018,', 'Task 2018', 'Complexity 2019', 'Task 2019']]
-        let specialCorbels = [['Week', 'Complexity 2018,', 'Task 2018', 'Complexity 2019', 'Task 2019']]
-        let paint = [['Week', 'Complexity 2018,', 'Task 2018', 'Complexity 2019', 'Task 2019']]
-        let rock = [['Week', 'Complexity 2018,', 'Task 2018', 'Complexity 2019', 'Task 2019']]
-        let brick = [['Week', 'Complexity 2018,', 'Task 2018', 'Complexity 2019', 'Task 2019']]
-        let soffitFascia = [['Week', 'Complexity 2018,', 'Task 2018', 'Complexity 2019', 'Task 2019']]
-        let stuccoColor = [['Week', 'Complexity 2018,', 'Task 2018', 'Complexity 2019', 'Task 2019']]
-        let shutters = [['Week', 'Complexity 2018,', 'Task 2018', 'Complexity 2019', 'Task 2019']]
-        let miscWork = [['Week', 'Complexity 2018,', 'Task 2018', 'Complexity 2019', 'Task 2019']]
-        let cleanup = [['Week', 'Complexity 2018,', 'Task 2018', 'Complexity 2019', 'Task 2019']]
-        let gutters = [['Week', 'Complexity 2018,', 'Task 2018', 'Complexity 2019', 'Task 2019']]
-        let vpoWork = [['Week', 'Complexity 2018,', 'Task 2018', 'Complexity 2019', 'Task 2019']]
-        let warrantyWork = [['Week', 'Complexity 2018,', 'Task 2018', 'Complexity 2019', 'Task 2019']]
-        let touchUps = [['Week', 'Complexity 2018,', 'Task 2018', 'Complexity 2019', 'Task 2019']]
-        let removeScaff = [['Week', 'Complexity 2018,', 'Task 2018', 'Complexity 2019', 'Task 2019']]
-        let foundationPlaster = [['Week', 'Complexity 2018,', 'Task 2018', 'Complexity 2019', 'Task 2019']]
-        let finalInspection = [['Week', 'Complexity 2018,', 'Task 2018', 'Complexity 2019', 'Task 2019']]
+        let setScaff = [['Week', 'Complexity 2018,', 'Task 2018', {type:'boolean',role:'certainty'}, 'Complexity 2019', 'Task 2019', {type:'boolean',role:'certainty'}]]
+        let paperWire = [['Week', 'Complexity 2018,', 'Task 2018', {type:'boolean',role:'certainty'}, 'Complexity 2019', 'Task 2019', {type:'boolean',role:'certainty'}]]
+        let housewrap = [['Week', 'Complexity 2018,', 'Task 2018', {type:'boolean',role:'certainty'}, 'Complexity 2019', 'Task 2019', {type:'boolean',role:'certainty'}]]
+        let lathInspection = [['Week', 'Complexity 2018,', 'Task 2018', {type:'boolean',role:'certainty'}, 'Complexity 2019', 'Task 2019', {type:'boolean',role:'certainty'}]]
+        let weatherBarrierInspection = [['Week', 'Complexity 2018,', 'Task 2018', {type:'boolean',role:'certainty'}, 'Complexity 2019', 'Task 2019', {type:'boolean',role:'certainty'}]]
+        let tentHeat = [['Week', 'Complexity 2018,', 'Task 2018', {type:'boolean',role:'certainty'}, 'Complexity 2019', 'Task 2019', {type:'boolean',role:'certainty'}]]
+        let stuccoBrown = [['Week', 'Complexity 2018,', 'Task 2018', {type:'boolean',role:'certainty'}, 'Complexity 2019', 'Task 2019', {type:'boolean',role:'certainty'}]]
+        let watering = [['Week', 'Complexity 2018,', 'Task 2018', {type:'boolean',role:'certainty'}, 'Complexity 2019', 'Task 2019', {type:'boolean',role:'certainty'}]]
+        let jChannel = [['Week', 'Complexity 2018,', 'Task 2018', {type:'boolean',role:'certainty'}, 'Complexity 2019', 'Task 2019', {type:'boolean',role:'certainty'}]]
+        let siding = [['Week', 'Complexity 2018,', 'Task 2018', {type:'boolean',role:'certainty'}, 'Complexity 2019', 'Task 2019', {type:'boolean',role:'certainty'}]]
+        let specialCorbels = [['Week', 'Complexity 2018,', 'Task 2018', {type:'boolean',role:'certainty'}, 'Complexity 2019', 'Task 2019', {type:'boolean',role:'certainty'}]]
+        let paint = [['Week', 'Complexity 2018,', 'Task 2018', {type:'boolean',role:'certainty'}, 'Complexity 2019', 'Task 2019', {type:'boolean',role:'certainty'}]]
+        let rock = [['Week', 'Complexity 2018,', 'Task 2018', {type:'boolean',role:'certainty'}, 'Complexity 2019', 'Task 2019', {type:'boolean',role:'certainty'}]]
+        let brick = [['Week', 'Complexity 2018,', 'Task 2018', {type:'boolean',role:'certainty'}, 'Complexity 2019', 'Task 2019', {type:'boolean',role:'certainty'}]]
+        let soffitFascia = [['Week', 'Complexity 2018,', 'Task 2018', {type:'boolean',role:'certainty'}, 'Complexity 2019', 'Task 2019', {type:'boolean',role:'certainty'}]]
+        let stuccoColor = [['Week', 'Complexity 2018,', 'Task 2018', {type:'boolean',role:'certainty'}, 'Complexity 2019', 'Task 2019', {type:'boolean',role:'certainty'}]]
+        let shutters = [['Week', 'Complexity 2018,', 'Task 2018', {type:'boolean',role:'certainty'}, 'Complexity 2019', 'Task 2019', {type:'boolean',role:'certainty'}]]
+        let miscWork = [['Week', 'Complexity 2018,', 'Task 2018', {type:'boolean',role:'certainty'}, 'Complexity 2019', 'Task 2019', {type:'boolean',role:'certainty'}]]
+        let cleanup = [['Week', 'Complexity 2018,', 'Task 2018', {type:'boolean',role:'certainty'}, 'Complexity 2019', 'Task 2019', {type:'boolean',role:'certainty'}]]
+        let gutters = [['Week', 'Complexity 2018,', 'Task 2018', {type:'boolean',role:'certainty'}, 'Complexity 2019', 'Task 2019', {type:'boolean',role:'certainty'}]]
+        let vpoWork = [['Week', 'Complexity 2018,', 'Task 2018', {type:'boolean',role:'certainty'}, 'Complexity 2019', 'Task 2019', {type:'boolean',role:'certainty'}]]
+        let warrantyWork = [['Week', 'Complexity 2018,', 'Task 2018', {type:'boolean',role:'certainty'}, 'Complexity 2019', 'Task 2019', {type:'boolean',role:'certainty'}]]
+        let touchUps = [['Week', 'Complexity 2018,', 'Task 2018', {type:'boolean',role:'certainty'}, 'Complexity 2019', 'Task 2019', {type:'boolean',role:'certainty'}]]
+        let removeScaff = [['Week', 'Complexity 2018,', 'Task 2018', {type:'boolean',role:'certainty'}, 'Complexity 2019', 'Task 2019', {type:'boolean',role:'certainty'}]]
+        let foundationPlaster = [['Week', 'Complexity 2018,', 'Task 2018', {type:'boolean',role:'certainty'}, 'Complexity 2019', 'Task 2019', {type:'boolean',role:'certainty'}]]
+        let finalInspection = [['Week', 'Complexity 2018,', 'Task 2018', {type:'boolean',role:'certainty'}, 'Complexity 2019', 'Task 2019', {type:'boolean',role:'certainty'}]]
 
 
 
@@ -143,81 +143,107 @@ class ProspectByWeeksComplexity extends Component {
 
                     tasksWraper.setScaff.push(alltypes.setScaff.complexity)
                     tasksWraper.setScaff.push(alltypes.setScaff.total)
+                    tasksWraper.setScaff.push(alltypes.setScaff.certainty)
 
                     tasksWraper.paperWire.push(alltypes.paperWire.complexity)
                     tasksWraper.paperWire.push(alltypes.paperWire.total)
+                    tasksWraper.paperWire.push(alltypes.paperWire.certainty)
 
                     tasksWraper.housewrap.push(alltypes.housewrap.complexity)
                     tasksWraper.housewrap.push(alltypes.housewrap.total)
+                    tasksWraper.housewrap.push(alltypes.housewrap.certainty)
 
                     tasksWraper.lathInspection.push(alltypes.lathInspection.complexity)
                     tasksWraper.lathInspection.push(alltypes.lathInspection.total)
+                    tasksWraper.lathInspection.push(alltypes.lathInspection.certainty)
 
                     tasksWraper.weatherBarrierInspection.push(alltypes.weatherBarrierInspection.complexity)
                     tasksWraper.weatherBarrierInspection.push(alltypes.weatherBarrierInspection.total)
+                    tasksWraper.weatherBarrierInspection.push(alltypes.weatherBarrierInspection.certainty)
 
                     tasksWraper.tentHeat.push(alltypes.tentHeat.complexity)
                     tasksWraper.tentHeat.push(alltypes.tentHeat.total)
+                    tasksWraper.tentHeat.push(alltypes.tentHeat.certainty)
 
                     tasksWraper.stuccoBrown.push(alltypes.stuccoBrown.complexity)
                     tasksWraper.stuccoBrown.push(alltypes.stuccoBrown.total)
+                    tasksWraper.stuccoBrown.push(alltypes.stuccoBrown.certainty)
 
                     tasksWraper.watering.push(alltypes.watering.complexity)
                     tasksWraper.watering.push(alltypes.watering.total)
+                    tasksWraper.watering.push(alltypes.watering.certainty)
 
                     tasksWraper.jChannel.push(alltypes.jChannel.complexity)
                     tasksWraper.jChannel.push(alltypes.jChannel.total)
+                    tasksWraper.jChannel.push(alltypes.jChannel.certainty)
 
                     tasksWraper.siding.push(alltypes.siding.complexity)
                     tasksWraper.siding.push(alltypes.siding.total)
+                    tasksWraper.siding.push(alltypes.siding.certainty)
 
                     tasksWraper.specialCorbels.push(alltypes.specialCorbels.complexity)
                     tasksWraper.specialCorbels.push(alltypes.specialCorbels.total)
+                    tasksWraper.specialCorbels.push(alltypes.specialCorbels.certainty)
 
                     tasksWraper.paint.push(alltypes.paint.complexity)
                     tasksWraper.paint.push(alltypes.paint.total)
+                    tasksWraper.paint.push(alltypes.paint.certainty)
 
                     tasksWraper.rock.push(alltypes.rock.complexity)
                     tasksWraper.rock.push(alltypes.rock.total)
+                    tasksWraper.rock.push(alltypes.rock.certainty)
 
                     tasksWraper.brick.push(alltypes.brick.complexity)
                     tasksWraper.brick.push(alltypes.brick.total)
+                    tasksWraper.brick.push(alltypes.brick.certainty)
 
                     tasksWraper.soffitFascia.push(alltypes.soffitFascia.complexity)
                     tasksWraper.soffitFascia.push(alltypes.soffitFascia.total)
+                    tasksWraper.soffitFascia.push(alltypes.soffitFascia.certainty)
 
                     tasksWraper.stuccoColor.push(alltypes.stuccoColor.complexity)
                     tasksWraper.stuccoColor.push(alltypes.stuccoColor.total)
+                    tasksWraper.stuccoColor.push(alltypes.stuccoColor.certainty)
 
                     tasksWraper.shutters.push(alltypes.shutters.complexity)
                     tasksWraper.shutters.push(alltypes.shutters.total)
+                    tasksWraper.shutters.push(alltypes.shutters.certainty)
 
                     tasksWraper.miscWork.push(alltypes.miscWork.complexity)
                     tasksWraper.miscWork.push(alltypes.miscWork.total)
+                    tasksWraper.miscWork.push(alltypes.miscWork.certainty)
 
                     tasksWraper.cleanup.push(alltypes.cleanup.complexity)
                     tasksWraper.cleanup.push(alltypes.cleanup.total)
+                    tasksWraper.cleanup.push(alltypes.cleanup.certainty)
 
                     tasksWraper.gutters.push(alltypes.gutters.complexity)
                     tasksWraper.gutters.push(alltypes.gutters.total)
+                    tasksWraper.gutters.push(alltypes.gutters.certainty)
 
                     tasksWraper.vpoWork.push(alltypes.vpoWork.complexity)
                     tasksWraper.vpoWork.push(alltypes.vpoWork.total)
+                    tasksWraper.vpoWork.push(alltypes.vpoWork.certainty)
 
                     tasksWraper.warrantyWork.push(alltypes.warrantyWork.complexity)
                     tasksWraper.warrantyWork.push(alltypes.warrantyWork.total)
+                    tasksWraper.warrantyWork.push(alltypes.warrantyWork.certainty)
 
                     tasksWraper.touchUps.push(alltypes.touchUps.complexity)
                     tasksWraper.touchUps.push(alltypes.touchUps.total)
+                    tasksWraper.touchUps.push(alltypes.touchUps.certainty)
 
                     tasksWraper.removeScaff.push(alltypes.removeScaff.complexity)
                     tasksWraper.removeScaff.push(alltypes.removeScaff.total)
+                    tasksWraper.removeScaff.push(alltypes.removeScaff.certainty)
 
                     tasksWraper.foundationPlaster.push(alltypes.foundationPlaster.complexity)
                     tasksWraper.foundationPlaster.push(alltypes.foundationPlaster.total)
+                    tasksWraper.foundationPlaster.push(alltypes.foundationPlaster.certainty)
 
                     tasksWraper.finalInspection.push(alltypes.finalInspection.complexity)
                     tasksWraper.finalInspection.push(alltypes.finalInspection.total)
+                    tasksWraper.finalInspection.push(alltypes.finalInspection.certainty)
 
                 } else {
                     targetReached = true
@@ -288,8 +314,10 @@ class ProspectByWeeksComplexity extends Component {
 
     toggleData() {
         const { switcher, tasks, type } = this.state
+        const data = this.dataFormatter(tasks[type], !switcher)
+        console.log(data)
         this.setState({
-            chartData: this.dataFormatter(tasks[type], !switcher),
+            chartData: data,
             switcher: !switcher
         })
     }
@@ -305,8 +333,8 @@ class ProspectByWeeksComplexity extends Component {
         let toRet = []
         if (Array.isArray(data)) {
             toRet = data.map(item => {
-
-                return flag ? [item[0], item[1], item[3]] : [item[0], item[2], item[4]]
+                // console.log(item, item[4], item[5])
+                return flag ? [item[0], item[1], item[4], item[3]] : [item[0], item[2], item[5], item[6]]
             })
         }
         return toRet
@@ -367,18 +395,18 @@ class ProspectByWeeksComplexity extends Component {
                                 <Chart
                                     width={'100%'}
                                     height={'70vh'}
-                                    chartType="ComboChart"
+                                    chartType="LineChart"
                                     loader={<div className="loader border-top-info"></div>}
                                     data={this.state.chartData}
 
                                     options={{
                                         title: type + ' Qty',
                                         colors: chartColors,
-                                        series: series,
-                                        //trendlines: trendLineForChart,   // Draw a trendline for data series 0.
+                                        // series: series,
+                                        // trendlines: trendLineForChart,   // Draw a trendline for data series 0.
                                         vAxis: vAxis,
                                         hAxis: hAxis,
-                                        seriesType: 'line',
+                                        // seriesType: 'line',
                                         animation: {
                                             duration: 1000,
                                             easing: 'out',
