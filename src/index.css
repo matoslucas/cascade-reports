@@ -56,3 +56,7 @@ h4{
 #googlechart-control-1-2{
   margin: -10px 0 20px 50px;
 }
+.goog-menu {
+  height: 70vh;
+  overflow: auto;
+}
