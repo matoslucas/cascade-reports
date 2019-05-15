@@ -49,7 +49,7 @@ class NavbarComp extends React.Component {
         }
         return (
 
-            <Navbar dark expand="md" style={{ backgroundColor: '#3f3f3f' }}>
+            <Navbar dark expand="md" style={{ backgroundColor: '#3f3f3f' }} className="w-100">
                 <NavbarBrand>
                     <Media left >
                         <Media object src={require('../assets/img/logo.png')} alt="Cascade logo" style={{ width: 200 }} />

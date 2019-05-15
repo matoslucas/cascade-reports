@@ -211,8 +211,8 @@ class AllTaskChart extends Component {
         }
         else {
             return (<Chart
-                width={'calc(100vw - 22px)'}
-                height={'80.78vh'}
+                width={'90vw'}
+                height={'80vh'}
                 chartType="Timeline"
                 loader={loader}
                 data={chartData}

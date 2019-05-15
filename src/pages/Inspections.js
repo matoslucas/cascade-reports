@@ -404,11 +404,13 @@ class Inspections extends Component {
         }
 
         return (
-            <div>{
+            <div className="d-flex justify-content-center align-items-center" >{
                 loading ?
+                <div className="d-flex justify-content-center align-items-center" style={{height: '90vh'}}>
                     <div className="loader border-top-info"></div>
+                </div>
                     :
-                    <div>
+                    <div style={{paddingBottom: 50}}>
                         {this.getDateFilter()}
                         {team === 'team' ? this.getCharts(dataforChart) : this.getSuperCharts(dataforChart)}
                     </div>

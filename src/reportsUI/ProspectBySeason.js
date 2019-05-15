@@ -125,10 +125,11 @@ class ProspectBySeason extends Component {
 
         let targetReached = false
         for (let item of data) {
+            
             const start = this.getDate(item[START_DATE])
             const end = this.getDate(item[END_DATE])
-            const duration = moment.duration(moment(end).diff(start)).asHours()
-            const builderPlanName = item['Builder Plan Name']
+            const duration = Number(item['Actual Task Duration']) //moment.duration(moment(end).diff(start)).asHours()
+            const builderPlanName = item['Builder Plan Name']? item['Builder Plan Name']: 0
             const taskType = item['Task Type']
 
             if (builderPlanName && (duration > 0) && isNaN(builderPlanName)) {
@@ -140,6 +141,8 @@ class ProspectBySeason extends Component {
                 } else {
                     winterDuration = duration
                 }
+
+                // console.log(winterDuration, summerDuration)
 
 
                 switch (taskType) {
@@ -249,14 +252,16 @@ class ProspectBySeason extends Component {
 
     render() {
 
-        const { switcher, type } = this.state
+        const { type } = this.state
         return (
             <div className="d-flex flex-column align-items-center justify-content-center" >
 
 
                 {
                     this.state.loading ?
-                        <div className="loader border-top-info"></div>
+                        <div className="d-flex justify-content-center align-items-center" style={{ height: '90vh' }}>
+                            <div className="loader border-top-info"></div>
+                        </div>
                         :
                         <div className="d-flex flex-column align-items-center justify-content-center">
                             <TaskRadioGroup
@@ -265,14 +270,14 @@ class ProspectBySeason extends Component {
                                 filter={'Main'} />
                             <Chart
                                 className="d-flex flex-column align-items-center justify-content-center"
-                                width={'100vw'}
-                                height={'65vh'}
+                                width={'99vw'}
+                                height={'80vh'}
                                 chartType="Scatter"
                                 loader={<div className="loader border-top-info"></div>}
 
                                 data={this.state.chartData}
                                 options={{
-                                    
+
                                     // seriesType: 'line',
                                     animation: {
                                         duration: 1000,
@@ -287,17 +292,17 @@ class ProspectBySeason extends Component {
                                 chartPackages={['corechart', 'controls']}
                                 controls={[
                                     {
-                                      controlType: 'StringFilter',
-                                      options: {
-                                        filterColumnIndex: 0,
-                                        matchType: 'any', // 'prefix' | 'exact',
-                                        ui: {
-                                          label: 'Search by Plan Name',
+                                        controlType: 'StringFilter',
+                                        options: {
+                                            filterColumnIndex: 0,
+                                            matchType: 'any', // 'prefix' | 'exact',
+                                            ui: {
+                                                label: 'Search by Plan Name',
+                                            },
                                         },
-                                      },
                                     },
-                                   
-                                  ]}
+
+                                ]}
                             />
                         </div>
                 }

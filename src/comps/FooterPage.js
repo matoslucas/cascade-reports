@@ -12,7 +12,7 @@ import {
 class FooterPage extends React.Component {
   render() {
     return (
-      <Footer className="font-small" style={{ backgroundColor: '#3f3f3f', position: 'absolute', width:'100%'}}>
+      <Footer className="fixed-bottom font-small" style={{ backgroundColor: '#3f3f3f', width:'100%'}}>
         <div className="footer-copyright text-center py-3" w>
           <Container fluid>
             &copy;  Copyright  {new Date().getFullYear()} -

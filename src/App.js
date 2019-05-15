@@ -43,16 +43,11 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
+      <div className="d-flex justify-content-center align-items-center" >
         <Router history={history}>
-          <div>
+          <div className="w-100 d-flex flex-column justify-content-center align-items-center" >
             <NavbarComp action={this.triggerAction} />
-            <div
-              className="d-flex justify-content-center align-items-center"
-              style={{
-                marginBottom: 40,
-                marginTop: 40
-              }} >
+           
               <Switch>
                 <Route path="/dashboard" component={ProtectedRoute(withTracker(Dashboard))} />
                 <Route path="/timelines" component={ProtectedRoute(withTracker(Timeline))} />
@@ -62,7 +57,7 @@ class App extends Component {
                 <Route path="/inspections/:team" component={ProtectedRoute(withTracker(Inspections))} />
                 <Route path="/" component={withTracker(Login)} />
               </Switch>
-            </div>
+            
             <FooterPage />
 
           </div>
